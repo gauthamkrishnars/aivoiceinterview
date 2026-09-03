@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Mail, Lock, User, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 
@@ -50,89 +50,73 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-gradient-mesh">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-display font-bold text-white mb-2">
-            Create your account
-          </h1>
-          <p className="text-surface-400">
-            Free forever. No credit card required.
-          </p>
-        </div>
+    <div className="min-h-screen flex items-start justify-center px-5 pt-32">
+      <div className="w-full max-w-sm">
+        <h1 className="font-display text-[24px] font-medium text-[#f0f0f0] mb-1">
+          Create your account
+        </h1>
+        <p className="text-[14px] text-[#555] mb-8">
+          Free forever. No credit card needed.
+        </p>
 
-        <div className="glass-card rounded-2xl p-8">
-          <form onSubmit={handleSubmit} className="space-y-5">
-            {error && (
-              <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
-                {error}
-              </div>
-            )}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {error && (
+            <div className="p-3 rounded bg-[#d44]/10 border border-[#d44]/20 text-[13px] text-[#f87171]">
+              {error}
+            </div>
+          )}
 
-            <Input
-              label="Full Name"
-              type="text"
-              placeholder="Jane Smith"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              icon={<User className="w-4 h-4" />}
-              required
-            />
+          <Input
+            label="Full name"
+            type="text"
+            placeholder="Jane Smith"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
 
-            <Input
-              label="Email"
-              type="email"
-              placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              icon={<Mail className="w-4 h-4" />}
-              required
-            />
+          <Input
+            label="Email"
+            type="email"
+            placeholder="you@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-            <Input
-              label="Password"
-              type="password"
-              placeholder="Min. 8 characters"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              icon={<Lock className="w-4 h-4" />}
-              required
-              minLength={8}
-            />
+          <Input
+            label="Password"
+            type="password"
+            placeholder="Min. 8 characters"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            minLength={8}
+          />
 
-            <Button
-              type="submit"
-              variant="primary"
-              className="w-full"
-              size="lg"
-              loading={loading}
-              icon={<ArrowRight className="w-4 h-4" />}
-            >
-              Create Account
-            </Button>
-          </form>
+          <Button
+            type="submit"
+            variant="primary"
+            className="w-full"
+            size="lg"
+            loading={loading}
+            icon={<ArrowRight className="w-4 h-4" />}
+          >
+            Create account
+          </Button>
+        </form>
 
-          <div className="mt-6 pt-6 border-t border-surface-700/50 text-center">
-            <p className="text-surface-400 text-sm">
-              Already have an account?{" "}
-              <Link
-                href="/auth/login"
-                className="text-brand-400 hover:text-brand-300 font-medium transition-colors"
-              >
-                Log in
-              </Link>
-            </p>
-          </div>
-
-          <div className="mt-4 text-center">
-            <Link
-              href="/auth/guest"
-              className="text-surface-500 hover:text-surface-300 text-sm transition-colors"
-            >
-              Or try without an account
-            </Link>
-          </div>
-        </div>
+        <p className="mt-6 text-[13px] text-[#555]">
+          Already have an account?{" "}
+          <Link href="/auth/login" className="text-[#e8a44a] hover:text-[#c4873a] transition-colors">
+            Log in
+          </Link>
+        </p>
+        <p className="mt-2 text-[13px] text-[#333]">
+          <Link href="/auth/guest" className="hover:text-[#555] transition-colors">
+            Or try without an account
+          </Link>
+        </p>
       </div>
     </div>
   );

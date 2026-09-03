@@ -62,6 +62,7 @@ export default function InterviewPage() {
   const [loading, setLoading] = useState(true);
   const [connecting, setConnecting] = useState(false);
   const [muted, setMuted] = useState(false);
+  const [textInput, setTextInput] = useState("");
 
   const transcriptRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -124,7 +125,6 @@ export default function InterviewPage() {
         setIsActive(true);
         setConnecting(false);
 
-        // Read the first question aloud
         if (interview && interview.questions.length > 0) {
           speakText(interview.questions[0].question);
         }
@@ -149,7 +149,6 @@ export default function InterviewPage() {
 
   const startListening = () => {
     if (!("webkitSpeechRecognition" in window) && !("SpeechRecognition" in window)) {
-      // Fallback: use text input if speech recognition is not available
       handleTextFallback();
       return;
     }
@@ -188,7 +187,6 @@ export default function InterviewPage() {
   };
 
   const handleTextFallback = () => {
-    // If speech recognition is not available, show a text input
     setIsListening(true);
   };
 
@@ -202,7 +200,6 @@ export default function InterviewPage() {
     setTranscript((prev) => [...prev, entry]);
     setIsListening(false);
 
-    // Move to next question after a short delay
     setTimeout(() => {
       const nextIdx = currentQuestionIdx + 1;
       if (interview && nextIdx < interview.questions.length) {
@@ -218,7 +215,6 @@ export default function InterviewPage() {
         ]);
         speakText(nextQ.question);
       } else {
-        // Interview complete
         endSession();
       }
     }, 800);
@@ -246,7 +242,6 @@ export default function InterviewPage() {
           }),
         });
 
-        // Generate feedback
         const feedbackRes = await fetch("/api/session/feedback", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -293,9 +288,9 @@ export default function InterviewPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-12 h-12 border-2 border-surface-600 border-t-brand-500 rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-surface-400 font-display">Loading interview...</p>
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-6 h-6 border-2 border-[#262626] border-t-[#e8a44a] rounded-full animate-spin" />
+          <p className="text-[13px] text-[#555]">Loading interview...</p>
         </div>
       </div>
     );
@@ -303,70 +298,58 @@ export default function InterviewPage() {
 
   if (!interview) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center px-5">
         <div className="text-center">
-          <p className="text-surface-400 font-display mb-4">
-            No interview found
-          </p>
-          <Button onClick={() => router.push("/create")}>
-            Create New Interview
-          </Button>
+          <p className="text-[14px] text-[#8a8a8a] mb-4">No interview found</p>
+          <Button onClick={() => router.push("/create")}>Create new interview</Button>
         </div>
       </div>
     );
   }
 
-  const [textInput, setTextInput] = useState("");
-
   return (
-    <div className="min-h-screen bg-gradient-mesh flex flex-col">
+    <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <div className="glass-card border-b border-surface-700/30 px-4 py-3">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div className="border-b border-[#262626] bg-[#0c0c0c] px-5 py-2.5">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Badge variant="brand">
+            <Badge variant="accent">
               {currentQuestionIdx + 1} / {interview.questions.length}
             </Badge>
-            <span className="text-sm text-surface-400 font-display hidden sm:inline">
+            <span className="text-[13px] text-[#555] hidden sm:inline">
               {interview.title}
             </span>
           </div>
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 text-surface-400">
-              <Clock className="w-4 h-4" />
-              <span className="text-sm font-mono">
-                {formatTime(elapsedTime)}
-              </span>
+            <div className="flex items-center gap-1.5 text-[#555]">
+              <Clock className="w-3.5 h-3.5" />
+              <span className="text-[12px] font-mono">{formatTime(elapsedTime)}</span>
             </div>
             <button
               onClick={() => setMuted(!muted)}
-              className="p-2 rounded-lg text-surface-400 hover:text-white hover:bg-surface-700/50 transition-colors"
+              className="p-1.5 rounded text-[#555] hover:text-[#f0f0f0] hover:bg-[#1a1a1a] transition-colors"
             >
-              {muted ? (
-                <VolumeX className="w-4 h-4" />
-              ) : (
-                <Volume2 className="w-4 h-4" />
-              )}
+              {muted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
             </button>
           </div>
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col lg:flex-row max-w-7xl mx-auto w-full">
+      <div className="flex-1 flex flex-col lg:flex-row max-w-6xl mx-auto w-full">
         {/* Voice Interface */}
-        <div className="flex-1 flex flex-col items-center justify-center p-6 lg:p-12">
+        <div className="flex-1 flex flex-col items-center justify-center p-8 lg:p-12">
           {!isActive ? (
-            <div className="text-center max-w-md animate-fade-in">
-              <div className="w-24 h-24 rounded-3xl bg-gradient-brand flex items-center justify-center mx-auto mb-8 hover-glow">
-                <Mic className="w-12 h-12 text-white" />
+            <div className="text-center max-w-md">
+              <div className="w-14 h-14 rounded bg-[#141414] border border-[#262626] flex items-center justify-center mx-auto mb-6">
+                <Mic className="w-6 h-6 text-[#e8a44a]" />
               </div>
-              <h2 className="text-2xl font-display font-bold text-white mb-3">
+              <h2 className="font-display text-[20px] font-medium text-[#f0f0f0] mb-2">
                 {interview.title}
               </h2>
-              <p className="text-surface-400 mb-2">
+              <p className="text-[13px] text-[#555] mb-1">
                 {interview.questions.length} questions ready
               </p>
-              <p className="text-surface-500 text-sm mb-8">
+              <p className="text-[12px] text-[#333] mb-8">
                 {interview.questions
                   .map((q) => q.category)
                   .filter((v, i, a) => a.indexOf(v) === i)
@@ -377,87 +360,57 @@ export default function InterviewPage() {
                 size="lg"
                 onClick={startSession}
                 loading={connecting}
-                icon={<Play className="w-5 h-5" />}
+                icon={<Play className="w-4 h-4" />}
               >
-                Start Interview
+                Start interview
               </Button>
             </div>
           ) : (
             <div className="text-center">
-              {/* Voice Visualization */}
-              <div className="relative mb-8">
+              {/* Voice indicator */}
+              <div className="mb-8">
                 <div
-                  className={`w-32 h-32 rounded-full flex items-center justify-center transition-all duration-300 ${
+                  className={`w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 ${
                     isSpeaking
-                      ? "bg-brand-500/20 voice-ring"
+                      ? "bg-[#e8a44a]/10 ring-2 ring-[#e8a44a]/20 ring-offset-4 ring-offset-[#0c0c0c]"
                       : isListening
-                      ? "bg-accent-500/20"
-                      : isPaused
-                      ? "bg-surface-700/30"
-                      : "bg-surface-700/30"
+                      ? "bg-[#e8a44a]/5 ring-2 ring-[#e8a44a]/10 ring-offset-4 ring-offset-[#0c0c0c]"
+                      : "bg-[#141414] border border-[#262626]"
                   }`}
                 >
-                  <div
-                    className={`w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 ${
-                      isSpeaking
-                        ? "bg-brand-500/30"
-                        : isListening
-                        ? "bg-accent-500/30"
-                        : "bg-surface-700/50"
-                    }`}
-                  >
-                    {isSpeaking ? (
-                      <Volume2 className="w-8 h-8 text-brand-300 animate-pulse" />
-                    ) : isListening ? (
-                      <Mic className="w-8 h-8 text-accent-300 animate-pulse" />
-                    ) : (
-                      <Pause className="w-8 h-8 text-surface-400" />
-                    )}
-                  </div>
+                  {isSpeaking ? (
+                    <Volume2 className="w-7 h-7 text-[#e8a44a]" />
+                  ) : isListening ? (
+                    <Mic className="w-7 h-7 text-[#e8a44a]" />
+                  ) : (
+                    <Pause className="w-7 h-7 text-[#555]" />
+                  )}
                 </div>
-
-                {/* Waveform bars */}
-                {(isSpeaking || isListening) && (
-                  <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex items-end gap-1">
-                    {[1, 2, 3, 4, 5, 6, 7].map((i) => (
-                      <div
-                        key={i}
-                        className={`w-1 rounded-full waveform-bar ${
-                          isSpeaking ? "bg-brand-400" : "bg-accent-400"
-                        }`}
-                        style={{
-                          animationDelay: `${i * 0.1}s`,
-                          animationDuration: isSpeaking ? "1.2s" : "0.8s",
-                        }}
-                      />
-                    ))}
-                  </div>
-                )}
               </div>
 
-              <p className="text-lg font-display font-medium text-white mb-2 mt-10">
+              <p className="text-[14px] text-[#f0f0f0] mb-1">
                 {isSpeaking
                   ? "AI is speaking..."
                   : isListening
-                  ? "Your turn to speak"
+                  ? "Your turn"
                   : isPaused
                   ? "Paused"
-                  : "Processing..."}
+                  : "Starting..."}
               </p>
 
               {isListening && (
-                <p className="text-sm text-surface-500 mb-6">
-                  Click the microphone or type your answer below
+                <p className="text-[12px] text-[#555] mb-6">
+                  Speak or type your answer below
                 </p>
               )}
 
-              <div className="flex items-center justify-center gap-3 mt-6">
+              <div className="flex items-center justify-center gap-2 mt-6">
                 {isListening && (
                   <Button
-                    variant="accent"
-                    size="lg"
+                    variant="danger"
+                    size="sm"
                     onClick={stopListening}
-                    icon={<MicOff className="w-5 h-5" />}
+                    icon={<MicOff className="w-3.5 h-3.5" />}
                   >
                     Stop
                   </Button>
@@ -466,18 +419,18 @@ export default function InterviewPage() {
                 {isPaused ? (
                   <Button
                     variant="primary"
-                    size="lg"
+                    size="sm"
                     onClick={resumeSession}
-                    icon={<Play className="w-5 h-5" />}
+                    icon={<Play className="w-3.5 h-3.5" />}
                   >
                     Resume
                   </Button>
                 ) : (
                   <Button
                     variant="secondary"
-                    size="lg"
+                    size="sm"
                     onClick={pauseSession}
-                    icon={<Pause className="w-5 h-5" />}
+                    icon={<Pause className="w-3.5 h-3.5" />}
                   >
                     Pause
                   </Button>
@@ -485,15 +438,15 @@ export default function InterviewPage() {
 
                 <Button
                   variant="danger"
-                  size="lg"
+                  size="sm"
                   onClick={endSession}
-                  icon={<Square className="w-5 h-5" />}
+                  icon={<Square className="w-3.5 h-3.5" />}
                 >
                   End
                 </Button>
               </div>
 
-              {/* Text Input Fallback */}
+              {/* Text input */}
               {isListening && (
                 <div className="mt-8 max-w-md mx-auto">
                   <form
@@ -510,8 +463,8 @@ export default function InterviewPage() {
                       type="text"
                       value={textInput}
                       onChange={(e) => setTextInput(e.target.value)}
-                      placeholder="Or type your answer here..."
-                      className="flex-1 px-4 py-3 rounded-xl bg-surface-800/50 border border-surface-600/50 text-white placeholder-surface-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 transition-all"
+                      placeholder="Type your answer..."
+                      className="flex-1 px-3 py-2 bg-[#0c0c0c] border border-[#262626] rounded-md text-[#f0f0f0] text-[14px] placeholder-[#555] outline-none focus:border-[#e8a44a] transition-colors"
                     />
                     <Button
                       type="submit"
@@ -525,59 +478,49 @@ export default function InterviewPage() {
                 </div>
               )}
 
-              {/* Current Question */}
-              <div className="mt-8 glass-card rounded-xl p-4 max-w-md mx-auto">
+              {/* Current question */}
+              <div className="mt-8 bg-[#141414] border border-[#262626] rounded p-4 max-w-md mx-auto text-left">
                 <div className="flex items-center gap-2 mb-2">
-                  <MessageSquare className="w-4 h-4 text-brand-400" />
-                  <span className="text-xs text-surface-500 font-display uppercase tracking-wider">
-                    Current Question
+                  <MessageSquare className="w-3.5 h-3.5 text-[#e8a44a]" />
+                  <span className="text-[11px] text-[#555] uppercase tracking-wider font-medium">
+                    Current question
                   </span>
                 </div>
-                <p className="text-sm text-surface-300">
-                  {interview.questions[currentQuestionIdx]?.question ||
-                    "Interview complete!"}
+                <p className="text-[13px] text-[#8a8a8a] leading-relaxed">
+                  {interview.questions[currentQuestionIdx]?.question || "Interview complete"}
                 </p>
               </div>
             </div>
           )}
         </div>
 
-        {/* Transcript Panel */}
-        <div className="w-full lg:w-96 border-t lg:border-t-0 lg:border-l border-surface-700/30 flex flex-col max-h-[40vh] lg:max-h-none">
-          <div className="px-4 py-3 border-b border-surface-700/30 flex items-center gap-2">
-            <MessageSquare className="w-4 h-4 text-brand-400" />
-            <span className="text-sm font-display font-semibold text-white">
-              Transcript
-            </span>
-            <span className="text-xs text-surface-500 ml-auto">
-              {transcript.length} messages
+        {/* Transcript */}
+        <div className="w-full lg:w-80 border-t lg:border-t-0 lg:border-l border-[#262626] flex flex-col max-h-[40vh] lg:max-h-none">
+          <div className="px-4 py-2.5 border-b border-[#262626] flex items-center gap-2">
+            <MessageSquare className="w-3.5 h-3.5 text-[#e8a44a]" />
+            <span className="text-[12px] font-medium text-[#f0f0f0]">Transcript</span>
+            <span className="text-[11px] text-[#555] ml-auto">
+              {transcript.length}
             </span>
           </div>
 
           <div
             ref={transcriptRef}
-            className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin"
+            className="flex-1 overflow-y-auto p-3 space-y-2 scrollbar-thin"
           >
             {transcript.map((entry, idx) => (
-              <div
-                key={idx}
-                className={`animate-slide-up ${
-                  entry.role === "interviewer" ? "" : ""
-                }`}
-              >
+              <div key={idx}>
                 <div
-                  className={`rounded-xl p-3 ${
+                  className={`rounded p-2.5 ${
                     entry.role === "interviewer"
-                      ? "bg-brand-500/10 border border-brand-500/10"
-                      : "bg-surface-800/50 border border-surface-700/30 ml-4"
+                      ? "bg-[#141414] border border-[#1e1e1e]"
+                      : "bg-[#e8a44a]/5 border border-[#e8a44a]/10 ml-3"
                   }`}
                 >
-                  <p className="text-xs text-surface-500 font-display mb-1">
-                    {entry.role === "interviewer"
-                      ? "Interviewer"
-                      : "You"}
+                  <p className="text-[10px] text-[#555] uppercase tracking-wider mb-1 font-medium">
+                    {entry.role === "interviewer" ? "Interviewer" : "You"}
                   </p>
-                  <p className="text-sm text-surface-200 leading-relaxed">
+                  <p className="text-[12px] text-[#8a8a8a] leading-relaxed">
                     {entry.content}
                   </p>
                 </div>
@@ -585,9 +528,9 @@ export default function InterviewPage() {
             ))}
 
             {isListening && (
-              <div className="flex items-center gap-2 text-surface-500">
+              <div className="flex items-center gap-2 text-[#555] p-2">
                 <VoiceLoading />
-                <span className="text-xs">Listening...</span>
+                <span className="text-[11px]">Listening...</span>
               </div>
             )}
           </div>

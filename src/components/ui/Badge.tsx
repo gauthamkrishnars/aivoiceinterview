@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 interface BadgeProps {
   children: ReactNode;
-  variant?: "default" | "brand" | "accent" | "success" | "warning" | "danger";
+  variant?: "default" | "accent" | "success" | "warning" | "danger";
   size?: "sm" | "md";
 }
 
@@ -11,23 +11,22 @@ export default function Badge({
   variant = "default",
   size = "sm",
 }: BadgeProps) {
-  const variants = {
-    default: "bg-surface-700/50 text-surface-300",
-    brand: "bg-brand-500/10 text-brand-400 border border-brand-500/20",
-    accent: "bg-accent-500/10 text-accent-400 border border-accent-500/20",
-    success: "bg-green-500/10 text-green-400 border border-green-500/20",
-    warning: "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20",
-    danger: "bg-red-500/10 text-red-400 border border-red-500/20",
+  const variants: Record<string, string> = {
+    default: "bg-[#1a1a1a] text-[#8a8a8a] border-[#262626]",
+    accent: "bg-[#e8a44a]/10 text-[#e8a44a] border-[#e8a44a]/20",
+    success: "bg-[#2d8a4e]/10 text-[#4ade80] border-[#2d8a4e]/20",
+    warning: "bg-[#e8a44a]/10 text-[#e8a44a] border-[#e8a44a]/20",
+    danger: "bg-[#d44]/10 text-[#f87171] border-[#d44]/20",
   };
 
-  const sizes = {
-    sm: "px-2 py-0.5 text-xs",
-    md: "px-3 py-1 text-sm",
+  const sizes: Record<string, string> = {
+    sm: "px-2 py-0.5 text-[11px]",
+    md: "px-2.5 py-0.5 text-[12px]",
   };
 
   return (
     <span
-      className={`inline-flex items-center font-display font-medium rounded-full ${variants[variant]} ${sizes[size]}`}
+      className={`inline-flex items-center font-medium rounded border ${variants[variant]} ${sizes[size]}`}
     >
       {children}
     </span>

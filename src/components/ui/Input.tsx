@@ -13,28 +13,28 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="space-y-1.5">
         {label && (
-          <label className="block text-sm font-medium text-surface-300 font-display">
+          <label className="block text-[13px] font-medium text-[#8a8a8a]">
             {label}
           </label>
         )}
         <div className="relative">
           {icon && (
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-500">
+            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-[#555]">
               {icon}
             </div>
           )}
           <input
             ref={ref}
-            className={`w-full px-4 py-2.5 rounded-xl bg-surface-800/50 border border-surface-600/50 text-white placeholder-surface-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500/50 transition-all duration-200 ${
-              icon ? "pl-10" : ""
+            className={`w-full px-3 py-2 bg-[#0c0c0c] border border-[#262626] rounded-md text-[#f0f0f0] text-[14px] placeholder-[#555] outline-none transition-colors focus:border-[#e8a44a] ${
+              icon ? "pl-9" : ""
             } ${
-              error ? "border-red-500/50 focus:ring-red-500/50" : ""
+              error ? "border-[#d44] focus:border-[#d44]" : ""
             } ${className}`}
             {...props}
           />
         </div>
         {error && (
-          <p className="text-sm text-red-400">{error}</p>
+          <p className="text-[12px] text-[#d44]">{error}</p>
         )}
       </div>
     );

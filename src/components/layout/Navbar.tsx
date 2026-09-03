@@ -11,7 +11,6 @@ import {
   LogOut,
   User,
 } from "lucide-react";
-import Button from "@/components/ui/Button";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -39,103 +38,106 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-surface-700/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 rounded-xl bg-gradient-brand flex items-center justify-center group-hover:shadow-lg group-hover:shadow-brand-500/25 transition-all duration-200">
-              <Mic className="w-5 h-5 text-white" />
-            </div>
-            <span className="font-display font-bold text-lg text-white">
-              VoicePrep
-            </span>
-          </Link>
-
-          <div className="hidden md:flex items-center gap-2">
-            {user ? (
-              <>
-                <Link href="/dashboard">
-                  <Button variant="ghost" size="sm" icon={<History className="w-4 h-4" />}>
-                    History
-                  </Button>
-                </Link>
-                <Link href="/create">
-                  <Button variant="primary" size="sm" icon={<Plus className="w-4 h-4" />}>
-                    New Interview
-                  </Button>
-                </Link>
-                <div className="flex items-center gap-2 ml-2 pl-2 border-l border-surface-700/50">
-                  <div className="w-8 h-8 rounded-full bg-surface-700 flex items-center justify-center">
-                    <User className="w-4 h-4 text-surface-300" />
-                  </div>
-                  <span className="text-sm text-surface-300 font-display">
-                    {user.name || "Guest"}
-                  </span>
-                  <button
-                    onClick={handleLogout}
-                    className="p-1.5 rounded-lg text-surface-400 hover:text-white hover:bg-surface-700/50 transition-colors"
-                  >
-                    <LogOut className="w-4 h-4" />
-                  </button>
-                </div>
-              </>
-            ) : (
-              <>
-                <Link href="/auth/login">
-                  <Button variant="ghost" size="sm">
-                    Log In
-                  </Button>
-                </Link>
-                <Link href="/auth/signup">
-                  <Button variant="primary" size="sm">
-                    Sign Up
-                  </Button>
-                </Link>
-                <Link href="/auth/guest">
-                  <Button variant="secondary" size="sm">
-                    Try as Guest
-                  </Button>
-                </Link>
-              </>
-            )}
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0c0c0c]/90 backdrop-blur-sm border-b border-[#262626]">
+      <div className="max-w-6xl mx-auto px-5 h-14 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="w-7 h-7 rounded bg-[#e8a44a] flex items-center justify-center">
+            <Mic className="w-3.5 h-3.5 text-[#0c0c0c]" />
           </div>
+          <span className="font-display text-[15px] font-medium text-[#f0f0f0] tracking-tight">
+            VoicePrep
+          </span>
+        </Link>
 
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 rounded-lg text-surface-400 hover:text-white hover:bg-surface-700/50 transition-colors"
-          >
-            {mobileOpen ? (
-              <X className="w-5 h-5" />
-            ) : (
-              <Menu className="w-5 h-5" />
-            )}
-          </button>
+        <div className="hidden md:flex items-center gap-1">
+          {user ? (
+            <>
+              <Link
+                href="/dashboard"
+                className="flex items-center gap-1.5 px-3 py-1.5 text-[13px] text-[#8a8a8a] hover:text-[#f0f0f0] hover:bg-[#1a1a1a] rounded-md transition-colors"
+              >
+                <History className="w-3.5 h-3.5" />
+                History
+              </Link>
+              <Link
+                href="/create"
+                className="flex items-center gap-1.5 px-3 py-1.5 text-[13px] font-medium text-[#0c0c0c] bg-[#e8a44a] hover:bg-[#c4873a] rounded-md transition-colors"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                New Interview
+              </Link>
+              <div className="w-px h-4 bg-[#262626] mx-2" />
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full bg-[#1a1a1a] border border-[#262626] flex items-center justify-center">
+                  <User className="w-3 h-3 text-[#8a8a8a]" />
+                </div>
+                <span className="text-[13px] text-[#8a8a8a]">
+                  {user.name || "Guest"}
+                </span>
+                <button
+                  onClick={handleLogout}
+                  className="p-1.5 rounded text-[#555] hover:text-[#d44] hover:bg-[#1a1a1a] transition-colors"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/auth/login"
+                className="px-3 py-1.5 text-[13px] text-[#8a8a8a] hover:text-[#f0f0f0] transition-colors"
+              >
+                Log in
+              </Link>
+              <Link
+                href="/auth/signup"
+                className="px-3 py-1.5 text-[13px] font-medium text-[#0c0c0c] bg-[#e8a44a] hover:bg-[#c4873a] rounded-md transition-colors"
+              >
+                Sign up
+              </Link>
+              <Link
+                href="/auth/guest"
+                className="px-3 py-1.5 text-[13px] text-[#555] hover:text-[#8a8a8a] border border-[#262626] rounded-md hover:border-[#333] transition-colors"
+              >
+                Guest
+              </Link>
+            </>
+          )}
         </div>
+
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="md:hidden p-1.5 rounded text-[#8a8a8a] hover:text-[#f0f0f0] hover:bg-[#1a1a1a] transition-colors"
+        >
+          {mobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+        </button>
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden border-t border-surface-700/30 animate-slide-down">
-          <div className="p-4 space-y-2">
+        <div className="md:hidden border-t border-[#262626] bg-[#0c0c0c]">
+          <div className="p-3 space-y-1">
             {user ? (
               <>
                 <Link
                   href="/dashboard"
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-surface-300 hover:text-white hover:bg-surface-700/50 transition-colors"
+                  className="flex items-center gap-2 px-3 py-2 rounded text-[13px] text-[#8a8a8a] hover:text-[#f0f0f0] hover:bg-[#1a1a1a] transition-colors"
                 >
-                  <History className="w-5 h-5" />
+                  <History className="w-4 h-4" />
                   History
                 </Link>
                 <Link
                   href="/create"
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl bg-brand-600 text-white"
+                  className="flex items-center gap-2 px-3 py-2 rounded text-[13px] font-medium text-[#0c0c0c] bg-[#e8a44a] hover:bg-[#c4873a] transition-colors"
                 >
-                  <Plus className="w-5 h-5" />
+                  <Plus className="w-4 h-4" />
                   New Interview
                 </Link>
-                <div className="flex items-center gap-3 px-4 py-3 text-surface-400">
-                  <User className="w-5 h-5" />
+                <div className="h-px bg-[#262626] my-1" />
+                <div className="flex items-center gap-2 px-3 py-2 text-[13px] text-[#555]">
+                  <User className="w-4 h-4" />
                   {user.name}
                 </div>
                 <button
@@ -143,10 +145,10 @@ export default function Navbar() {
                     setMobileOpen(false);
                     handleLogout();
                   }}
-                  className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-red-400 hover:bg-red-500/10 transition-colors"
+                  className="flex items-center gap-2 w-full px-3 py-2 rounded text-[13px] text-[#d44] hover:bg-[#1a1a1a] transition-colors"
                 >
-                  <LogOut className="w-5 h-5" />
-                  Log Out
+                  <LogOut className="w-4 h-4" />
+                  Log out
                 </button>
               </>
             ) : (
@@ -154,23 +156,23 @@ export default function Navbar() {
                 <Link
                   href="/auth/login"
                   onClick={() => setMobileOpen(false)}
-                  className="block px-4 py-3 rounded-xl text-surface-300 hover:text-white hover:bg-surface-700/50 transition-colors font-display"
+                  className="block px-3 py-2 rounded text-[13px] text-[#8a8a8a] hover:text-[#f0f0f0] hover:bg-[#1a1a1a] transition-colors"
                 >
-                  Log In
+                  Log in
                 </Link>
                 <Link
                   href="/auth/signup"
                   onClick={() => setMobileOpen(false)}
-                  className="block px-4 py-3 rounded-xl bg-brand-600 text-white text-center font-display"
+                  className="block px-3 py-2 rounded text-[13px] font-medium text-[#0c0c0c] bg-[#e8a44a] text-center"
                 >
-                  Sign Up
+                  Sign up
                 </Link>
                 <Link
                   href="/auth/guest"
                   onClick={() => setMobileOpen(false)}
-                  className="block px-4 py-3 rounded-xl glass-card text-surface-300 text-center font-display"
+                  className="block px-3 py-2 rounded text-[13px] text-[#555] text-center border border-[#262626]"
                 >
-                  Try as Guest
+                  Try as guest
                 </Link>
               </>
             )}

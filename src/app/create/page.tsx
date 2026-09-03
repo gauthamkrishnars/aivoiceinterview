@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Select from "@/components/ui/Select";
-import Card from "@/components/ui/Card";
 
 const roles = [
   { value: "", label: "Select a role" },
@@ -73,10 +72,10 @@ const techStacks = [
 ];
 
 const questionCounts = [
-  { value: "5", label: "5 Questions (Quick)" },
-  { value: "8", label: "8 Questions (Standard)" },
-  { value: "10", label: "10 Questions (Thorough)" },
-  { value: "15", label: "15 Questions (Deep Dive)" },
+  { value: "5", label: "5", desc: "Quick" },
+  { value: "8", label: "8", desc: "Standard" },
+  { value: "10", label: "10", desc: "Thorough" },
+  { value: "15", label: "15", desc: "Deep dive" },
 ];
 
 export default function CreateInterviewPage() {
@@ -120,66 +119,64 @@ export default function CreateInterviewPage() {
   };
 
   const steps = [
-    { num: 1, label: "Role", icon: Briefcase, active: step === 1 },
-    { num: 2, label: "Level", icon: Layers, active: step === 2 },
-    { num: 3, label: "Stack", icon: Code2, active: step === 3 },
-    { num: 4, label: "Count", icon: Hash, active: step === 4 },
+    { num: 1, label: "Role", icon: Briefcase },
+    { num: 2, label: "Level", icon: Layers },
+    { num: 3, label: "Stack", icon: Code2 },
+    { num: 4, label: "Count", icon: Hash },
   ];
 
   return (
-    <div className="min-h-screen py-12 px-4 bg-gradient-mesh">
-      <div className="max-w-2xl mx-auto">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-300 text-xs font-display mb-4">
-            <Sparkles className="w-3.5 h-3.5" />
-            AI Generated Questions
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-display font-bold text-white mb-3">
+    <div className="min-h-screen py-16 px-5">
+      <div className="max-w-lg mx-auto">
+        {/* Header */}
+        <div className="mb-10">
+          <h1 className="font-display text-[24px] font-medium text-[#f0f0f0] mb-1">
             Build your interview
           </h1>
-          <p className="text-surface-400 max-w-md mx-auto">
+          <p className="text-[14px] text-[#555]">
             Answer a few quick questions about the role you are preparing for.
-            We will handle the rest.
           </p>
         </div>
 
-        {/* Step Progress */}
-        <div className="flex items-center justify-center gap-2 mb-10">
+        {/* Step indicator */}
+        <div className="flex items-center gap-1 mb-8">
           {steps.map((s, i) => {
             const Icon = s.icon;
             return (
-              <div key={s.num} className="flex items-center">
+              <div key={s.num} className="flex items-center flex-1">
                 <button
                   onClick={() => s.num <= step && setStep(s.num)}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-display transition-all duration-200 ${
-                    s.active
-                      ? "bg-brand-500/20 text-brand-300 border border-brand-500/30"
+                  className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded text-[12px] font-medium transition-colors ${
+                    s.num === step
+                      ? "bg-[#e8a44a]/10 text-[#e8a44a] border border-[#e8a44a]/20"
                       : s.num < step
-                      ? "bg-green-500/10 text-green-400 border border-green-500/20 cursor-pointer hover:bg-green-500/20"
-                      : "bg-surface-800/50 text-surface-500 border border-surface-700/30"
+                      ? "bg-[#2d8a4e]/10 text-[#4ade80] border border-[#2d8a4e]/20 cursor-pointer hover:bg-[#2d8a4e]/15"
+                      : "bg-[#141414] text-[#555] border border-[#262626]"
                   }`}
                 >
-                  <Icon className="w-4 h-4" />
+                  <Icon className="w-3.5 h-3.5" />
                   <span className="hidden sm:inline">{s.label}</span>
                 </button>
                 {i < steps.length - 1 && (
-                  <ChevronRight className="w-4 h-4 text-surface-600 mx-1" />
+                  <ChevronRight className="w-3 h-3 text-[#333] mx-1 flex-shrink-0" />
                 )}
               </div>
             );
           })}
         </div>
 
-        {/* Step Content */}
-        <Card className="animate-fade-in">
+        {/* Step content */}
+        <div className="bg-[#141414] border border-[#262626] rounded-lg p-6">
           {step === 1 && (
             <div className="space-y-4">
-              <h2 className="text-lg font-display font-bold text-white">
-                What role are you targeting?
-              </h2>
-              <p className="text-sm text-surface-400">
-                This shapes the type and depth of questions you will get.
-              </p>
+              <div>
+                <h2 className="font-display text-[16px] font-medium text-[#f0f0f0] mb-1">
+                  What role are you targeting?
+                </h2>
+                <p className="text-[13px] text-[#555]">
+                  This shapes the type and depth of questions you will get.
+                </p>
+              </div>
               <Select
                 options={roles}
                 value={role}
@@ -190,12 +187,14 @@ export default function CreateInterviewPage() {
 
           {step === 2 && (
             <div className="space-y-4">
-              <h2 className="text-lg font-display font-bold text-white">
-                Your experience level?
-              </h2>
-              <p className="text-sm text-surface-400">
-                We adjust question difficulty and follow-ups based on this.
-              </p>
+              <div>
+                <h2 className="font-display text-[16px] font-medium text-[#f0f0f0] mb-1">
+                  Your experience level?
+                </h2>
+                <p className="text-[13px] text-[#555]">
+                  We adjust difficulty and follow-ups based on this.
+                </p>
+              </div>
               <Select
                 options={experiences}
                 value={experience}
@@ -206,12 +205,14 @@ export default function CreateInterviewPage() {
 
           {step === 3 && (
             <div className="space-y-4">
-              <h2 className="text-lg font-display font-bold text-white">
-                Your primary tech stack?
-              </h2>
-              <p className="text-sm text-surface-400">
-                We will include questions specific to your tools and platform.
-              </p>
+              <div>
+                <h2 className="font-display text-[16px] font-medium text-[#f0f0f0] mb-1">
+                  Your primary tech stack?
+                </h2>
+                <p className="text-[13px] text-[#555]">
+                  Questions will include topics specific to your tools.
+                </p>
+              </div>
               <Select
                 options={techStacks}
                 value={techStack}
@@ -222,45 +223,40 @@ export default function CreateInterviewPage() {
 
           {step === 4 && (
             <div className="space-y-4">
-              <h2 className="text-lg font-display font-bold text-white">
-                How many questions?
-              </h2>
-              <p className="text-sm text-surface-400">
-                Longer sessions give more detailed feedback. Short ones are
-                great for quick practice.
-              </p>
-              <div className="grid grid-cols-2 gap-3">
+              <div>
+                <h2 className="font-display text-[16px] font-medium text-[#f0f0f0] mb-1">
+                  How many questions?
+                </h2>
+                <p className="text-[13px] text-[#555]">
+                  Longer sessions give more detailed feedback.
+                </p>
+              </div>
+              <div className="grid grid-cols-4 gap-2">
                 {questionCounts.map((qc) => (
                   <button
                     key={qc.value}
                     onClick={() => setQuestionCount(qc.value)}
-                    className={`p-4 rounded-xl border text-left transition-all duration-200 ${
+                    className={`p-3 rounded border text-center transition-colors ${
                       questionCount === qc.value
-                        ? "bg-brand-500/10 border-brand-500/30 text-white"
-                        : "bg-surface-800/30 border-surface-700/30 text-surface-300 hover:border-surface-500/50 hover:bg-surface-800/50"
+                        ? "bg-[#e8a44a]/10 border-[#e8a44a]/30 text-[#e8a44a]"
+                        : "bg-[#0c0c0c] border-[#262626] text-[#8a8a8a] hover:border-[#444]"
                     }`}
                   >
-                    <span className="block text-2xl font-display font-bold mb-1">
-                      {qc.value}
+                    <span className="block text-[20px] font-display font-medium mb-0.5">
+                      {qc.label}
                     </span>
-                    <span className="text-xs text-surface-400">
-                      {qc.value === "5"
-                        ? "Quick"
-                        : qc.value === "8"
-                        ? "Standard"
-                        : qc.value === "10"
-                        ? "Thorough"
-                        : "Deep"}
+                    <span className="text-[11px] text-[#555]">
+                      {qc.desc}
                     </span>
                   </button>
                 ))}
               </div>
             </div>
           )}
-        </Card>
+        </div>
 
         {/* Navigation */}
-        <div className="flex items-center justify-between mt-6">
+        <div className="flex items-center justify-between mt-4">
           <Button
             variant="ghost"
             onClick={() => step > 1 && setStep(step - 1)}
@@ -280,41 +276,37 @@ export default function CreateInterviewPage() {
             </Button>
           ) : (
             <Button
-              variant="accent"
+              variant="primary"
               onClick={handleGenerate}
               loading={loading}
               icon={<Sparkles className="w-4 h-4" />}
-              size="lg"
             >
-              Generate Interview
+              Generate interview
             </Button>
           )}
         </div>
 
-        {/* Summary */}
+        {/* Config summary */}
         {step >= 2 && (
-          <div className="mt-8 glass-card rounded-xl p-4">
-            <h3 className="text-xs font-display font-semibold text-surface-500 uppercase tracking-wider mb-3">
-              Your Config
-            </h3>
-            <div className="flex flex-wrap gap-2">
+          <div className="mt-6 p-3 bg-[#141414] border border-[#1e1e1e] rounded">
+            <div className="flex flex-wrap gap-1.5">
               {role && (
-                <span className="px-3 py-1 rounded-lg bg-brand-500/10 text-brand-300 text-xs font-display">
+                <span className="px-2 py-0.5 rounded bg-[#e8a44a]/10 text-[#e8a44a] text-[11px] font-medium border border-[#e8a44a]/20">
                   {roles.find((r) => r.value === role)?.label}
                 </span>
               )}
               {experience && (
-                <span className="px-3 py-1 rounded-lg bg-accent-500/10 text-accent-300 text-xs font-display">
+                <span className="px-2 py-0.5 rounded bg-[#1a1a1a] text-[#8a8a8a] text-[11px] border border-[#262626]">
                   {experiences.find((e) => e.value === experience)?.label}
                 </span>
               )}
               {techStack && (
-                <span className="px-3 py-1 rounded-lg bg-green-500/10 text-green-300 text-xs font-display">
+                <span className="px-2 py-0.5 rounded bg-[#1a1a1a] text-[#8a8a8a] text-[11px] border border-[#262626]">
                   {techStacks.find((t) => t.value === techStack)?.label}
                 </span>
               )}
-              <span className="px-3 py-1 rounded-lg bg-surface-700/50 text-surface-300 text-xs font-display">
-                {questionCount} Questions
+              <span className="px-2 py-0.5 rounded bg-[#1a1a1a] text-[#8a8a8a] text-[11px] border border-[#262626]">
+                {questionCount} Qs
               </span>
             </div>
           </div>

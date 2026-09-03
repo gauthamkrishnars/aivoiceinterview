@@ -11,11 +11,9 @@ import {
   Calendar,
   Briefcase,
   Code2,
-  Filter,
   Search,
 } from "lucide-react";
 import Button from "@/components/ui/Button";
-import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
 import { SkeletonCard } from "@/components/ui/Loading";
 
@@ -48,7 +46,6 @@ export default function DashboardPage() {
   const [sessions, setSessions] = useState<Session[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filterStatus, setFilterStatus] = useState("all");
 
   useEffect(() => {
     const user = localStorage.getItem("user");
@@ -73,12 +70,10 @@ export default function DashboardPage() {
   };
 
   const filteredSessions = sessions.filter((s) => {
-    const matchesSearch =
+    return (
       s.interview.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      s.interview.role.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesFilter =
-      filterStatus === "all" || s.status === filterStatus;
-    return matchesSearch && matchesFilter;
+      s.interview.role.toLowerCase().includes(searchQuery.toLowerCase())
+    );
   });
 
   const stats = {
@@ -107,203 +102,146 @@ export default function DashboardPage() {
     return new Date(date).toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
-      year: "numeric",
       hour: "2-digit",
       minute: "2-digit",
     });
   };
 
   const getScoreColor = (score: number) => {
-    if (score >= 80) return "text-green-400";
-    if (score >= 60) return "text-accent-400";
-    if (score >= 40) return "text-yellow-400";
-    return "text-red-400";
+    if (score >= 80) return "text-[#4ade80]";
+    if (score >= 60) return "text-[#e8a44a]";
+    if (score >= 40) return "text-[#fbbf24]";
+    return "text-[#f87171]";
   };
 
   return (
-    <div className="min-h-screen py-12 px-4 bg-gradient-mesh">
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-10">
-          <h1 className="text-3xl sm:text-4xl font-display font-bold text-white mb-2">
+    <div className="min-h-screen py-12 px-5">
+      <div className="max-w-4xl mx-auto">
+        <div className="mb-8">
+          <h1 className="font-display text-[24px] font-medium text-[#f0f0f0] mb-1">
             Session History
           </h1>
-          <p className="text-surface-400">
-            Track your progress across all interview sessions.
+          <p className="text-[14px] text-[#555]">
+            Your interview practice, tracked.
           </p>
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-          <div className="glass-card rounded-xl p-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center">
-                <History className="w-5 h-5 text-brand-400" />
-              </div>
-              <div>
-                <p className="text-2xl font-display font-bold text-white">
-                  {stats.total}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-[#1e1e1e] mb-8">
+          {[
+            { label: "Total", value: stats.total, icon: History, color: "#8a8a8a" },
+            { label: "Avg Score", value: stats.avgScore || "—", icon: BarChart3, color: "#e8a44a" },
+            { label: "Practice", value: `${stats.totalMinutes}m`, icon: Clock, color: "#8a8a8a" },
+            { label: "Done", value: stats.completed, icon: BarChart3, color: "#4ade80" },
+          ].map((stat) => {
+            const Icon = stat.icon;
+            return (
+              <div key={stat.label} className="bg-[#0c0c0c] p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Icon className="w-3.5 h-3.5" style={{ color: stat.color }} />
+                  <span className="text-[11px] text-[#555] uppercase tracking-wider font-medium">
+                    {stat.label}
+                  </span>
+                </div>
+                <p className="font-display text-[22px] font-medium text-[#f0f0f0]">
+                  {stat.value}
                 </p>
-                <p className="text-xs text-surface-500">Total Sessions</p>
               </div>
-            </div>
-          </div>
-          <div className="glass-card rounded-xl p-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center">
-                <BarChart3 className="w-5 h-5 text-green-400" />
-              </div>
-              <div>
-                <p className="text-2xl font-display font-bold text-white">
-                  {stats.avgScore || "—"}
-                </p>
-                <p className="text-xs text-surface-500">Avg Score</p>
-              </div>
-            </div>
-          </div>
-          <div className="glass-card rounded-xl p-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-accent-500/10 flex items-center justify-center">
-                <Clock className="w-5 h-5 text-accent-400" />
-              </div>
-              <div>
-                <p className="text-2xl font-display font-bold text-white">
-                  {stats.totalMinutes}m
-                </p>
-                <p className="text-xs text-surface-500">Practice Time</p>
-              </div>
-            </div>
-          </div>
-          <div className="glass-card rounded-xl p-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
-                <BarChart3 className="w-5 h-5 text-purple-400" />
-              </div>
-              <div>
-                <p className="text-2xl font-display font-bold text-white">
-                  {stats.completed}
-                </p>
-                <p className="text-xs text-surface-500">Completed</p>
-              </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
 
-        {/* Search and Filter */}
-        <div className="flex flex-col sm:flex-row gap-3 mb-6">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-500" />
-            <input
-              type="text"
-              placeholder="Search by role or title..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-surface-800/50 border border-surface-600/50 text-white placeholder-surface-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 transition-all text-sm"
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <Filter className="w-4 h-4 text-surface-500" />
-            <select
-              value={filterStatus}
-              onChange={(e) => setFilterStatus(e.target.value)}
-              className="px-3 py-2.5 rounded-xl bg-surface-800/50 border border-surface-600/50 text-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/50 appearance-none cursor-pointer"
-            >
-              <option value="all">All Status</option>
-              <option value="completed">Completed</option>
-              <option value="active">In Progress</option>
-            </select>
-          </div>
+        {/* Search */}
+        <div className="relative mb-6">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#555]" />
+          <input
+            type="text"
+            placeholder="Search sessions..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-9 pr-4 py-2 bg-[#0c0c0c] border border-[#262626] rounded-md text-[#f0f0f0] text-[13px] placeholder-[#555] outline-none focus:border-[#e8a44a] transition-colors"
+          />
         </div>
 
-        {/* Session List */}
+        {/* Sessions */}
         {loading ? (
-          <div className="space-y-4">
+          <div className="space-y-2">
             {[1, 2, 3].map((i) => (
               <SkeletonCard key={i} />
             ))}
           </div>
         ) : filteredSessions.length === 0 ? (
-          <div className="text-center py-20">
-            <div className="w-16 h-16 rounded-2xl bg-surface-800/50 flex items-center justify-center mx-auto mb-4">
-              <History className="w-8 h-8 text-surface-500" />
+          <div className="text-center py-16">
+            <div className="w-10 h-10 rounded bg-[#141414] border border-[#262626] flex items-center justify-center mx-auto mb-4">
+              <History className="w-5 h-5 text-[#555]" />
             </div>
-            <h3 className="text-lg font-display font-semibold text-white mb-2">
+            <h3 className="font-display text-[16px] font-medium text-[#f0f0f0] mb-1">
               No sessions yet
             </h3>
-            <p className="text-surface-400 text-sm mb-6">
-              Start your first interview to see it appear here.
+            <p className="text-[13px] text-[#555] mb-5">
+              Start your first interview to see it here.
             </p>
             <Link href="/create">
-              <Button
-                variant="primary"
-                icon={<ArrowRight className="w-4 h-4" />}
-              >
-                Create Interview
+              <Button variant="primary" icon={<ArrowRight className="w-4 h-4" />}>
+                Create interview
               </Button>
             </Link>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-px bg-[#1e1e1e] rounded overflow-hidden">
             {filteredSessions.map((session) => (
               <Link
                 key={session.id}
                 href={`/feedback/${session.id}`}
-                className="block"
+                className="block bg-[#0c0c0c] hover:bg-[#141414] transition-colors"
               >
-                <Card hover className="group">
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-display font-semibold text-white truncate group-hover:text-brand-300 transition-colors">
-                          {session.interview.title}
-                        </h3>
-                        <Badge
-                          variant={
-                            session.status === "completed"
-                              ? "success"
-                              : "warning"
-                          }
-                        >
-                          {session.status === "completed"
-                            ? "Done"
-                            : "Active"}
-                        </Badge>
-                      </div>
-                      <div className="flex flex-wrap items-center gap-3 text-xs text-surface-500">
-                        <span className="flex items-center gap-1">
-                          <Briefcase className="w-3 h-3" />
-                          {session.interview.role.replace(/-/g, " ")}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Code2 className="w-3 h-3" />
-                          {session.interview.techStack.replace(/-/g, " ")}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          {formatDuration(session.duration)}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Calendar className="w-3 h-3" />
-                          {formatDate(session.createdAt)}
-                        </span>
-                      </div>
+                <div className="p-4 flex flex-col sm:flex-row sm:items-center gap-3">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="font-display text-[14px] font-medium text-[#f0f0f0] truncate">
+                        {session.interview.title}
+                      </h3>
+                      <Badge
+                        variant={
+                          session.status === "completed"
+                            ? "success"
+                            : "warning"
+                        }
+                      >
+                        {session.status === "completed" ? "Done" : "Active"}
+                      </Badge>
                     </div>
-
-                    {session.overallScore !== null && (
-                      <div className="text-right">
-                        <p
-                          className={`text-2xl font-display font-bold ${getScoreColor(
-                            session.overallScore
-                          )}`}
-                        >
-                          {session.overallScore}
-                        </p>
-                        <p className="text-xs text-surface-500">Score</p>
-                      </div>
-                    )}
-
-                    <ArrowRight className="w-5 h-5 text-surface-600 group-hover:text-brand-400 group-hover:translate-x-1 transition-all hidden sm:block" />
+                    <div className="flex flex-wrap items-center gap-3 text-[11px] text-[#555]">
+                      <span className="flex items-center gap-1">
+                        <Briefcase className="w-3 h-3" />
+                        {session.interview.role.replace(/-/g, " ")}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Code2 className="w-3 h-3" />
+                        {session.interview.techStack.replace(/-/g, " ")}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-3 h-3" />
+                        {formatDuration(session.duration)}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Calendar className="w-3 h-3" />
+                        {formatDate(session.createdAt)}
+                      </span>
+                    </div>
                   </div>
-                </Card>
+
+                  {session.overallScore !== null && (
+                    <div className="text-right">
+                      <p className={`font-display text-[20px] font-medium ${getScoreColor(session.overallScore)}`}>
+                        {session.overallScore}
+                      </p>
+                      <p className="text-[10px] text-[#555] uppercase tracking-wider">Score</p>
+                    </div>
+                  )}
+
+                  <ArrowRight className="w-4 h-4 text-[#333] hidden sm:block" />
+                </div>
               </Link>
             ))}
           </div>

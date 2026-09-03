@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, Mic, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Button from "@/components/ui/Button";
 
 export default function GuestPage() {
@@ -29,88 +29,53 @@ export default function GuestPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-gradient-mesh">
-      <div className="w-full max-w-md text-center">
-        <div className="w-20 h-20 rounded-2xl bg-gradient-brand flex items-center justify-center mx-auto mb-8">
-          <Mic className="w-10 h-10 text-white" />
+    <div className="min-h-screen flex items-start justify-center px-5 pt-32">
+      <div className="w-full max-w-sm">
+        <div className="w-10 h-10 rounded bg-[#141414] border border-[#262626] flex items-center justify-center mb-6">
+          <span className="text-[#e8a44a] font-display text-[18px]">V</span>
         </div>
 
-        <h1 className="text-3xl font-display font-bold text-white mb-3">
+        <h1 className="font-display text-[24px] font-medium text-[#f0f0f0] mb-2">
           Jump right in
         </h1>
-        <p className="text-surface-400 mb-8 leading-relaxed">
-          No account needed. Your interview data stays on this device until
-          you close the browser.
+        <p className="text-[14px] text-[#555] mb-8 leading-relaxed">
+          No account needed. Your data stays on this device until you close the browser.
         </p>
 
-        <div className="glass-card rounded-2xl p-8 space-y-6">
-          <div className="space-y-3 text-left">
-            <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-brand-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <div className="w-2 h-2 rounded-full bg-brand-400" />
-              </div>
+        <div className="space-y-4 mb-6">
+          {[
+            { title: "AI voice interviews", desc: "Full conversation with real time responses" },
+            { title: "Personalized questions", desc: "Tailored to your role, experience, and stack" },
+            { title: "Detailed feedback", desc: "Score, strengths, weaknesses, and practice tips" },
+          ].map((item) => (
+            <div key={item.title} className="flex items-start gap-3">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#e8a44a] mt-2 flex-shrink-0" />
               <div>
-                <p className="text-sm text-surface-300 font-medium">
-                  AI voice interviews
+                <p className="text-[13px] text-[#f0f0f0] font-medium">
+                  {item.title}
                 </p>
-                <p className="text-xs text-surface-500">
-                  Full conversation with real time responses
+                <p className="text-[12px] text-[#555]">
+                  {item.desc}
                 </p>
               </div>
             </div>
-            <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-brand-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <div className="w-2 h-2 rounded-full bg-brand-400" />
-              </div>
-              <div>
-                <p className="text-sm text-surface-300 font-medium">
-                  Personalized questions
-                </p>
-                <p className="text-xs text-surface-500">
-                  Tailored to your role, experience, and stack
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-brand-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <div className="w-2 h-2 rounded-full bg-brand-400" />
-              </div>
-              <div>
-                <p className="text-sm text-surface-300 font-medium">
-                  Detailed feedback
-                </p>
-                <p className="text-xs text-surface-500">
-                  Score, strengths, weaknesses, and practice tips
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <Button
-            onClick={handleGuestLogin}
-            variant="primary"
-            className="w-full"
-            size="lg"
-            loading={loading}
-            icon={<ArrowRight className="w-5 h-5" />}
-          >
-            Start as Guest
-          </Button>
-
-          <p className="text-xs text-surface-500">
-            Guest sessions are saved locally.{" "}
-            <a
-              href="#"
-              className="text-surface-400 hover:text-white transition-colors underline"
-              onClick={(e) => {
-                e.preventDefault();
-                // Could open privacy modal
-              }}
-            >
-              See our privacy policy
-            </a>
-          </p>
+          ))}
         </div>
+
+        <Button
+          onClick={handleGuestLogin}
+          variant="primary"
+          className="w-full"
+          size="lg"
+          loading={loading}
+          icon={<ArrowRight className="w-4 h-4" />}
+        >
+          Start as guest
+        </Button>
+
+        <p className="mt-4 text-[12px] text-[#333]">
+          Guest sessions are saved locally on your device.
+        </p>
       </div>
     </div>
   );

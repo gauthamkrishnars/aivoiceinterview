@@ -5,200 +5,148 @@ import {
   Mic,
   Brain,
   BarChart3,
-  History,
-  Zap,
+  MessageSquare,
   ArrowRight,
   Play,
-  Star,
 } from "lucide-react";
-import Button from "@/components/ui/Button";
 
 const features = [
   {
     icon: Mic,
-    title: "Voice Powered",
+    title: "Voice first",
     description:
-      "Speak your answers naturally. The AI responds in real time, just like a real interviewer across the table.",
+      "Speak naturally. The AI listens and responds in real time, the way a real interviewer would.",
   },
   {
     icon: Brain,
-    title: "Smart Questions",
+    title: "Tailored questions",
     description:
-      "Questions tailored to your role, stack, and experience level. No generic cookie cutter lists.",
+      "Questions built for your role, your stack, your level. Nothing generic.",
   },
   {
     icon: BarChart3,
-    title: "Honest Feedback",
+    title: "Honest scoring",
     description:
-    "Get scored on communication, technical depth, and confidence. Clear strengths and real areas to work on.",
+      "Communication, technical depth, confidence. Measured clearly, not sugarcoated.",
   },
   {
-    icon: History,
-    title: "Full Transcripts",
+    icon: MessageSquare,
+    title: "Full transcripts",
     description:
-      "Review every answer word for word. Track your improvement across sessions over time.",
-  },
-  {
-    icon: Zap,
-    title: "Instant Setup",
-    description:
-      "No lengthy onboarding. Pick your interview topic and start talking in under a minute.",
-  },
-  {
-    icon: Star,
-    title: "Score & Grow",
-    description:
-      "Each session produces a detailed breakdown with practice exercises matched to your weak spots.",
-  },
-];
-
-const steps = [
-  {
-    step: "01",
-    title: "Pick Your Role",
-    description: "Select your target position, experience level, and tech stack.",
-  },
-  {
-    step: "02",
-    title: "Start Talking",
-    description: "Answer questions through your mic. The AI reacts to what you say.",
-  },
-  {
-    step: "03",
-    title: "Review & Improve",
-    description: "Read your transcript, check your score, and work on what matters.",
+      "Every word, recorded. Review what you said and see exactly where to improve.",
   },
 ];
 
 export default function HomePage() {
   return (
-    <div className="overflow-hidden">
-      {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center bg-gradient-mesh">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl" />
-        </div>
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-8 text-sm text-brand-300 font-display">
-              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              AI voice interviews are live
+    <div>
+      {/* Hero */}
+      <section className="min-h-[85vh] flex items-center">
+        <div className="max-w-6xl mx-auto px-5 w-full">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded border border-[#262626] bg-[#141414] text-[12px] text-[#8a8a8a] mb-8">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#4ade80]" />
+              Live now
             </div>
 
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold text-white leading-[1.1] mb-6">
-              Stop practicing{" "}
-              <span className="text-gradient">in your head.</span>
+            <h1 className="font-display text-[clamp(2.5rem,5vw,4rem)] leading-[1.05] font-medium text-[#f0f0f0] mb-6">
+              Practice your interview
               <br />
-              Start speaking out loud.
+              <span className="text-[#8a8a8a]">out loud.</span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-surface-400 leading-relaxed mb-10 max-w-xl">
-              VoicePrep puts you through a real voice interview. You talk. The
-              AI listens. You get scored. That is how you actually get better.
+            <p className="text-[16px] text-[#8a8a8a] leading-relaxed mb-10 max-w-lg">
+              VoicePrep runs a real voice interview. You talk. The AI responds.
+              You get scored. That is how you actually get better at this.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/auth/guest">
-                <Button
-                  variant="primary"
-                  size="lg"
-                  icon={<Play className="w-5 h-5" />}
-                >
-                  Try It Free
-                </Button>
+            <div className="flex flex-col sm:flex-row items-start gap-3">
+              <Link
+                href="/auth/guest"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#e8a44a] text-[#0c0c0c] rounded-md text-[14px] font-medium hover:bg-[#c4873a] transition-colors"
+              >
+                <Play className="w-4 h-4" />
+                Try it free
               </Link>
-              <Link href="/auth/signup">
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  icon={<ArrowRight className="w-5 h-5" />}
-                >
-                  Create Account
-                </Button>
+              <Link
+                href="/auth/signup"
+                className="inline-flex items-center gap-2 px-5 py-2.5 border border-[#262626] text-[#f0f0f0] rounded-md text-[14px] hover:border-[#444] hover:bg-[#141414] transition-colors"
+              >
+                Create account
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
-            <div className="mt-12 flex items-center gap-8 text-sm text-surface-500">
-              <div className="flex items-center gap-2">
-                <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center">
-                  <div className="w-2 h-2 rounded-full bg-green-400" />
-                </div>
-                No credit card needed
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center">
-                  <div className="w-2 h-2 rounded-full bg-green-400" />
-                </div>
-                Start in 60 seconds
-              </div>
+            <div className="mt-14 flex items-center gap-6 text-[12px] text-[#555]">
+              <span>No credit card</span>
+              <span className="w-px h-3 bg-[#262626]" />
+              <span>Start in 60 seconds</span>
+              <span className="w-px h-3 bg-[#262626]" />
+              <span>Free forever</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="py-24 border-t border-surface-700/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-4">
-              Three steps. Real results.
-            </h2>
-            <p className="text-surface-400 max-w-lg mx-auto">
-              No filler. No bloated onboarding. Just a straight path from
-              preparation to improvement.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {steps.map((item) => (
-              <div key={item.step} className="relative group">
-                <div className="glass-card rounded-2xl p-8 h-full hover-lift">
-                  <span className="text-5xl font-display font-bold text-brand-500/20 group-hover:text-brand-500/40 transition-colors">
-                    {item.step}
-                  </span>
-                  <h3 className="text-xl font-display font-bold text-white mt-4 mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-surface-400 leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
+      {/* How it works */}
+      <section className="py-20 border-t border-[#1e1e1e]">
+        <div className="max-w-6xl mx-auto px-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#1e1e1e]">
+            {[
+              {
+                step: "01",
+                title: "Pick your role",
+                desc: "Choose the position, experience level, and tech stack you are preparing for.",
+              },
+              {
+                step: "02",
+                title: "Start talking",
+                desc: "Answer questions through your mic. The AI reacts to what you say in real time.",
+              },
+              {
+                step: "03",
+                title: "Review and improve",
+                desc: "Read your transcript, check your score, and work on what matters.",
+              },
+            ].map((item) => (
+              <div key={item.step} className="bg-[#0c0c0c] p-8">
+                <span className="font-mono text-[11px] text-[#555]">
+                  {item.step}
+                </span>
+                <h3 className="font-display text-[18px] font-medium text-[#f0f0f0] mt-3 mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-[14px] text-[#8a8a8a] leading-relaxed">
+                  {item.desc}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Features Grid */}
-      <section className="py-24 border-t border-surface-700/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-4">
-              Everything you need to prepare right
+      {/* Features */}
+      <section className="py-20 border-t border-[#1e1e1e]">
+        <div className="max-w-6xl mx-auto px-5">
+          <div className="mb-12">
+            <h2 className="font-display text-[28px] font-medium text-[#f0f0f0] mb-2">
+              What you get
             </h2>
-            <p className="text-surface-400 max-w-lg mx-auto">
-              Built for people who would rather practice than read about
-              practicing.
+            <p className="text-[14px] text-[#555]">
+              Everything you need to prepare, nothing you do not.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-[#1e1e1e]">
             {features.map((feature) => {
               const Icon = feature.icon;
               return (
-                <div
-                  key={feature.title}
-                  className="glass-card rounded-2xl p-6 hover-lift group"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mb-4 group-hover:bg-brand-500/20 transition-colors">
-                    <Icon className="w-6 h-6 text-brand-400" />
-                  </div>
-                  <h3 className="text-lg font-display font-bold text-white mb-2">
+                <div key={feature.title} className="bg-[#0c0c0c] p-7">
+                  <Icon className="w-5 h-5 text-[#e8a44a] mb-4" strokeWidth={1.5} />
+                  <h3 className="font-display text-[16px] font-medium text-[#f0f0f0] mb-1.5">
                     {feature.title}
                   </h3>
-                  <p className="text-surface-400 text-sm leading-relaxed">
+                  <p className="text-[13px] text-[#8a8a8a] leading-relaxed">
                     {feature.description}
                   </p>
                 </div>
@@ -208,35 +156,31 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 border-t border-surface-700/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative rounded-3xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-brand-600/30 via-brand-700/20 to-accent-500/10" />
-            <div className="relative glass-card rounded-3xl p-12 sm:p-16 text-center">
-              <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-4">
-                Ready to stop guessing?
-              </h2>
-              <p className="text-surface-400 max-w-lg mx-auto mb-8">
-                Get honest feedback on how you actually sound in an interview.
-                No opinions. No sugarcoating. Just the truth.
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link href="/auth/guest">
-                  <Button
-                    variant="accent"
-                    size="lg"
-                    icon={<Mic className="w-5 h-5" />}
-                  >
-                    Start a Free Interview
-                  </Button>
-                </Link>
-                <Link href="/auth/signup">
-                  <Button variant="ghost" size="lg">
-                    Create Free Account
-                  </Button>
-                </Link>
-              </div>
+      {/* CTA */}
+      <section className="py-20 border-t border-[#1e1e1e]">
+        <div className="max-w-6xl mx-auto px-5">
+          <div className="max-w-xl">
+            <h2 className="font-display text-[28px] font-medium text-[#f0f0f0] mb-3">
+              Ready to stop guessing?
+            </h2>
+            <p className="text-[14px] text-[#8a8a8a] mb-8 leading-relaxed">
+              Find out how you actually sound in an interview. No opinions.
+              No sugarcoating. Just the truth.
+            </p>
+            <div className="flex items-center gap-3">
+              <Link
+                href="/auth/guest"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#e8a44a] text-[#0c0c0c] rounded-md text-[14px] font-medium hover:bg-[#c4873a] transition-colors"
+              >
+                <Mic className="w-4 h-4" />
+                Start a free interview
+              </Link>
+              <Link
+                href="/auth/signup"
+                className="inline-flex items-center gap-2 px-5 py-2.5 text-[#8a8a8a] text-[14px] hover:text-[#f0f0f0] transition-colors"
+              >
+                Create free account
+              </Link>
             </div>
           </div>
         </div>

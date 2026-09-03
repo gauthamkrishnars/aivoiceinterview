@@ -17,9 +17,9 @@ export default function Card({
 }: CardProps) {
   return (
     <div
-      className={`glass-card rounded-2xl p-6 ${
+      className={`bg-[#141414] border border-[#262626] rounded-lg p-5 ${
         hover
-          ? "hover-lift cursor-pointer hover:border-brand-500/20"
+          ? "cursor-pointer hover:border-[#333] hover:bg-[#1a1a1a] transition-all duration-150"
           : ""
       } ${className}`}
       onClick={onClick}
