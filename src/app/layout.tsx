@@ -30,26 +30,17 @@ export const metadata: Metadata = {
     title: "VoicePrep | AI Voice Interview Practice",
     description:
       "Practice interviews with an AI that talks back. Get real time voice feedback, detailed transcripts, and personalized coaching to ace your next interview.",
-    images: [
-      {
-        url: "https://voiceprep.app/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "VoicePrep AI Interview Platform",
-      },
-    ],
+    images: [],
   },
   twitter: {
     card: "summary_large_image",
     title: "VoicePrep | AI Voice Interview Practice",
     description:
       "Practice interviews with an AI that talks back. Real voice coaching, transcripts, and scoring.",
-    images: ["https://voiceprep.app/og-image.png"],
+    images: [],
   },
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
+    icon: "/icon-192.png",
   },
   manifest: "/site.webmanifest",
   robots: {
@@ -84,11 +75,7 @@ export default function RootLayout({
       price: "0",
       priceCurrency: "USD",
     },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      ratingCount: "1250",
-    },
+
   };
 
   return (

@@ -21,7 +21,7 @@ export async function POST(request: Request) {
 
     const user = await createUser(email, password, name);
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       user: {
         id: user.id,
         name: user.name,
@@ -29,6 +29,16 @@ export async function POST(request: Request) {
         isGuest: user.isGuest,
       },
     });
+
+    response.cookies.set("user_id", user.id, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 30, // 30 days
+    });
+
+    return response;
   } catch (error: unknown) {
     if (
       error &&

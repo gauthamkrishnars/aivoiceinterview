@@ -63,16 +63,8 @@ function generateQuestions(
   count: number
 ) {
   const roleName = roleLabels[role] || role;
-  const expLabel = experienceLabels[experience] || experience;
-  const techLabel = techLabels[techStack] || techStack;
 
-  const questionBank: Array<{
-    question: string;
-    category: string;
-    difficulty: "easy" | "medium" | "hard";
-  }> = [];
-
-  // Technical questions based on stack
+  // Questions by stack
   const technicalQuestions: Record<string, Array<{
     question: string;
     category: string;
@@ -132,7 +124,7 @@ function generateQuestions(
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const typedBank: Record<string, any[]> = questionBank as any;
+  const typedBank: Record<string, any[]> = technicalQuestions as any;
   const stackQuestions = typedBank[techStack] || typedBank["default"];
   const generalQuestions = typedBank["default"];
 
@@ -177,7 +169,6 @@ export async function POST(request: Request) {
     const questions = generateQuestions(role, experience, techStack, questionCount);
 
     const roleName = roleLabels[role] || role;
-    const techLabel = techLabels[techStack] || techStack;
 
     const interview = await prisma.interview.create({
       data: {

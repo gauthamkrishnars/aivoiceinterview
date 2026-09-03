@@ -31,7 +31,8 @@ export default function Navbar() {
     }
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await fetch("/api/auth/logout", { method: "POST" });
     localStorage.removeItem("user");
     setUser(null);
     window.location.href = "/";

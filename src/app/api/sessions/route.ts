@@ -6,7 +6,11 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get("userId");
 
-    const where = userId ? { userId } : {};
+    if (!userId) {
+      return NextResponse.json({ sessions: [] });
+    }
+
+    const where = { userId };
 
     const sessions = await prisma.session.findMany({
       where,
