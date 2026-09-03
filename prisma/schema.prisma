@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String?   @unique
+  name          String?
+  password      String?
+  isGuest       Boolean   @default(false)
+  avatarUrl     String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  interviews    Interview[]
+  sessions      Session[]
+}
+
+model Interview {
+  id            String    @id @default(uuid())
+  title         String
+  role          String
+  experience    String
+  techStack     String
+  questionCount Int
+  questions     String    // JSON stringified array
+  userId        String?
+  user          User?     @relation(fields: [userId], references: [id])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+}
+
+model Session {
+  id            String    @id @default(uuid())
+  transcript    String    @default("[]") // JSON stringified
+  status        String    @default("pending") // pending, active, completed
+  duration      Int       @default(0) // seconds
+  feedback      String?   // JSON stringified feedback
+  overallScore  Int?
+  interviewId   String
+  interview     Interview @relation(fields: [interviewId], references: [id])
+  userId        String?
+  user          User?     @relation(fields: [userId], references: [id])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
