@@ -31,14 +31,14 @@ export default function GuestPage() {
   return (
     <div className="min-h-screen flex items-start justify-center px-5 pt-32">
       <div className="w-full max-w-sm">
-        <div className="w-10 h-10 rounded bg-[#141414] border border-[#262626] flex items-center justify-center mb-6">
-          <span className="text-[#e8a44a] font-display text-[18px]">V</span>
+        <div className="w-10 h-10 rounded bg-[#c0392b] flex items-center justify-center mb-6">
+          <span className="text-white font-display text-[16px]">V</span>
         </div>
 
-        <h1 className="font-display text-[24px] font-medium text-[#f0f0f0] mb-2">
+        <h1 className="font-display text-[24px] text-[#1a1714] mb-2">
           Jump right in
         </h1>
-        <p className="text-[14px] text-[#555] mb-8 leading-relaxed">
+        <p className="text-[14px] text-[#6b6560] mb-8 leading-relaxed">
           No account needed. Your data stays on this device until you close the browser.
         </p>
 
@@ -49,12 +49,12 @@ export default function GuestPage() {
             { title: "Detailed feedback", desc: "Score, strengths, weaknesses, and practice tips" },
           ].map((item) => (
             <div key={item.title} className="flex items-start gap-3">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#e8a44a] mt-2 flex-shrink-0" />
+              <div className="w-1.5 h-1.5 rounded-full bg-[#c0392b] mt-2 flex-shrink-0" />
               <div>
-                <p className="text-[13px] text-[#f0f0f0] font-medium">
+                <p className="text-[13px] text-[#1a1714] font-medium">
                   {item.title}
                 </p>
-                <p className="text-[12px] text-[#555]">
+                <p className="text-[12px] text-[#a8a09a]">
                   {item.desc}
                 </p>
               </div>
@@ -73,7 +73,7 @@ export default function GuestPage() {
           Start as guest
         </Button>
 
-        <p className="mt-4 text-[12px] text-[#333]">
+        <p className="mt-4 text-[12px] text-[#a8a09a]">
           Guest sessions are saved locally on your device.
         </p>
       </div>

@@ -2,10 +2,10 @@
 
 export function VoiceLoading() {
   return (
-    <div className="flex items-center gap-1.5 h-6">
-      <div className="w-1.5 h-1.5 rounded-full bg-[#e8a44a] animate-pulse" />
-      <div className="w-1.5 h-1.5 rounded-full bg-[#e8a44a] animate-pulse" style={{ animationDelay: "0.15s" }} />
-      <div className="w-1.5 h-1.5 rounded-full bg-[#e8a44a] animate-pulse" style={{ animationDelay: "0.3s" }} />
+    <div className="flex items-center gap-1 h-5">
+      <div className="w-1 h-1 rounded-full bg-[#c0392b] animate-pulse" />
+      <div className="w-1 h-1 rounded-full bg-[#c0392b] animate-pulse" style={{ animationDelay: "0.15s" }} />
+      <div className="w-1 h-1 rounded-full bg-[#c0392b] animate-pulse" style={{ animationDelay: "0.3s" }} />
     </div>
   );
 }
@@ -18,7 +18,7 @@ export function SpinnerLoading({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
   };
 
   return (
-    <div className={`${sizes[size]} border-2 border-[#262626] border-t-[#e8a44a] rounded-full animate-spin`} />
+    <div className={`${sizes[size]} border-2 border-[#ebe5dd] border-t-[#c0392b] rounded-full animate-spin`} />
   );
 }
 
@@ -27,7 +27,7 @@ export function PageLoading() {
     <div className="min-h-screen flex items-center justify-center">
       <div className="flex flex-col items-center gap-3">
         <SpinnerLoading size="lg" />
-        <p className="text-[13px] text-[#555]">Loading...</p>
+        <p className="text-[13px] text-[#6b6560]">Loading...</p>
       </div>
     </div>
   );
@@ -35,10 +35,10 @@ export function PageLoading() {
 
 export function SkeletonCard() {
   return (
-    <div className="bg-[#141414] border border-[#262626] rounded-lg p-5 animate-pulse">
-      <div className="h-3 bg-[#1a1a1a] rounded w-3/4 mb-3" />
-      <div className="h-2.5 bg-[#1a1a1a] rounded w-1/2 mb-2" />
-      <div className="h-2.5 bg-[#1a1a1a] rounded w-2/3" />
+    <div className="bg-white border border-[#ddd6ce] rounded-md p-5 animate-pulse">
+      <div className="h-3 bg-[#f0ece6] rounded w-3/4 mb-3" />
+      <div className="h-2.5 bg-[#f0ece6] rounded w-1/2 mb-2" />
+      <div className="h-2.5 bg-[#f0ece6] rounded w-2/3" />
     </div>
   );
 }
@@ -46,7 +46,7 @@ export function SkeletonCard() {
 export function ButtonLoading() {
   return (
     <div className="flex items-center gap-2">
-      <div className="w-3.5 h-3.5 border-2 border-[#0c0c0c]/30 border-t-[#0c0c0c] rounded-full animate-spin" />
+      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
       <span>Processing...</span>
     </div>
   );

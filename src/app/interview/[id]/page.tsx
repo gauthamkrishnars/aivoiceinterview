@@ -289,8 +289,8 @@ export default function InterviewPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-6 h-6 border-2 border-[#262626] border-t-[#e8a44a] rounded-full animate-spin" />
-          <p className="text-[13px] text-[#555]">Loading interview...</p>
+          <div className="w-6 h-6 border-2 border-[#ebe5dd] border-t-[#c0392b] rounded-full animate-spin" />
+          <p className="text-[13px] text-[#6b6560]">Loading interview...</p>
         </div>
       </div>
     );
@@ -300,7 +300,7 @@ export default function InterviewPage() {
     return (
       <div className="min-h-screen flex items-center justify-center px-5">
         <div className="text-center">
-          <p className="text-[14px] text-[#8a8a8a] mb-4">No interview found</p>
+          <p className="text-[14px] text-[#6b6560] mb-4">No interview found</p>
           <Button onClick={() => router.push("/create")}>Create new interview</Button>
         </div>
       </div>
@@ -308,26 +308,26 @@ export default function InterviewPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[#f0ece6]">
       {/* Header */}
-      <div className="border-b border-[#262626] bg-[#0c0c0c] px-5 py-2.5">
+      <div className="border-b border-[#ddd6ce] bg-white px-5 py-2.5">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Badge variant="accent">
               {currentQuestionIdx + 1} / {interview.questions.length}
             </Badge>
-            <span className="text-[13px] text-[#555] hidden sm:inline">
+            <span className="text-[13px] text-[#6b6560] hidden sm:inline">
               {interview.title}
             </span>
           </div>
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1.5 text-[#555]">
+            <div className="flex items-center gap-1.5 text-[#6b6560]">
               <Clock className="w-3.5 h-3.5" />
               <span className="text-[12px] font-mono">{formatTime(elapsedTime)}</span>
             </div>
             <button
               onClick={() => setMuted(!muted)}
-              className="p-1.5 rounded text-[#555] hover:text-[#f0f0f0] hover:bg-[#1a1a1a] transition-colors"
+              className="p-1.5 rounded text-[#a8a09a] hover:text-[#1a1714] hover:bg-[#f0ece6] transition-colors"
             >
               {muted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
             </button>
@@ -340,16 +340,16 @@ export default function InterviewPage() {
         <div className="flex-1 flex flex-col items-center justify-center p-8 lg:p-12">
           {!isActive ? (
             <div className="text-center max-w-md">
-              <div className="w-14 h-14 rounded bg-[#141414] border border-[#262626] flex items-center justify-center mx-auto mb-6">
-                <Mic className="w-6 h-6 text-[#e8a44a]" />
+              <div className="w-14 h-14 rounded bg-[#c0392b] flex items-center justify-center mx-auto mb-6">
+                <Mic className="w-6 h-6 text-white" />
               </div>
-              <h2 className="font-display text-[20px] font-medium text-[#f0f0f0] mb-2">
+              <h2 className="font-display text-[20px] text-[#1a1714] mb-2">
                 {interview.title}
               </h2>
-              <p className="text-[13px] text-[#555] mb-1">
+              <p className="text-[13px] text-[#a8a09a] mb-1">
                 {interview.questions.length} questions ready
               </p>
-              <p className="text-[12px] text-[#333] mb-8">
+              <p className="text-[12px] text-[#a8a09a] mb-8">
                 {interview.questions
                   .map((q) => q.category)
                   .filter((v, i, a) => a.indexOf(v) === i)
@@ -372,23 +372,23 @@ export default function InterviewPage() {
                 <div
                   className={`w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 ${
                     isSpeaking
-                      ? "bg-[#e8a44a]/10 ring-2 ring-[#e8a44a]/20 ring-offset-4 ring-offset-[#0c0c0c]"
+                      ? "bg-[#c0392b]/10 ring-2 ring-[#c0392b]/20 ring-offset-4 ring-offset-[#f0ece6]"
                       : isListening
-                      ? "bg-[#e8a44a]/5 ring-2 ring-[#e8a44a]/10 ring-offset-4 ring-offset-[#0c0c0c]"
-                      : "bg-[#141414] border border-[#262626]"
+                      ? "bg-[#c0392b]/5 ring-2 ring-[#c0392b]/10 ring-offset-4 ring-offset-[#f0ece6]"
+                      : "bg-white border border-[#ddd6ce]"
                   }`}
                 >
                   {isSpeaking ? (
-                    <Volume2 className="w-7 h-7 text-[#e8a44a]" />
+                    <Volume2 className="w-7 h-7 text-[#c0392b]" />
                   ) : isListening ? (
-                    <Mic className="w-7 h-7 text-[#e8a44a]" />
+                    <Mic className="w-7 h-7 text-[#c0392b]" />
                   ) : (
-                    <Pause className="w-7 h-7 text-[#555]" />
+                    <Pause className="w-7 h-7 text-[#a8a09a]" />
                   )}
                 </div>
               </div>
 
-              <p className="text-[14px] text-[#f0f0f0] mb-1">
+              <p className="text-[14px] text-[#1a1714] mb-1">
                 {isSpeaking
                   ? "AI is speaking..."
                   : isListening
@@ -399,7 +399,7 @@ export default function InterviewPage() {
               </p>
 
               {isListening && (
-                <p className="text-[12px] text-[#555] mb-6">
+                <p className="text-[12px] text-[#a8a09a] mb-6">
                   Speak or type your answer below
                 </p>
               )}
@@ -464,7 +464,7 @@ export default function InterviewPage() {
                       value={textInput}
                       onChange={(e) => setTextInput(e.target.value)}
                       placeholder="Type your answer..."
-                      className="flex-1 px-3 py-2 bg-[#0c0c0c] border border-[#262626] rounded-md text-[#f0f0f0] text-[14px] placeholder-[#555] outline-none focus:border-[#e8a44a] transition-colors"
+                      className="flex-1 px-3 py-2 bg-white border border-[#ddd6ce] rounded text-[#1a1714] text-[14px] placeholder-[#a8a09a] outline-none focus:border-[#c0392b] focus:ring-2 focus:ring-[#c0392b]/10 transition-all"
                     />
                     <Button
                       type="submit"
@@ -479,14 +479,14 @@ export default function InterviewPage() {
               )}
 
               {/* Current question */}
-              <div className="mt-8 bg-[#141414] border border-[#262626] rounded p-4 max-w-md mx-auto text-left">
+              <div className="mt-8 bg-white border border-[#ddd6ce] rounded p-4 max-w-md mx-auto text-left">
                 <div className="flex items-center gap-2 mb-2">
-                  <MessageSquare className="w-3.5 h-3.5 text-[#e8a44a]" />
-                  <span className="text-[11px] text-[#555] uppercase tracking-wider font-medium">
+                  <MessageSquare className="w-3.5 h-3.5 text-[#c0392b]" />
+                  <span className="text-[11px] text-[#a8a09a] uppercase tracking-wider font-medium">
                     Current question
                   </span>
                 </div>
-                <p className="text-[13px] text-[#8a8a8a] leading-relaxed">
+                <p className="text-[13px] text-[#6b6560] leading-relaxed">
                   {interview.questions[currentQuestionIdx]?.question || "Interview complete"}
                 </p>
               </div>
@@ -495,11 +495,11 @@ export default function InterviewPage() {
         </div>
 
         {/* Transcript */}
-        <div className="w-full lg:w-80 border-t lg:border-t-0 lg:border-l border-[#262626] flex flex-col max-h-[40vh] lg:max-h-none">
-          <div className="px-4 py-2.5 border-b border-[#262626] flex items-center gap-2">
-            <MessageSquare className="w-3.5 h-3.5 text-[#e8a44a]" />
-            <span className="text-[12px] font-medium text-[#f0f0f0]">Transcript</span>
-            <span className="text-[11px] text-[#555] ml-auto">
+        <div className="w-full lg:w-80 border-t lg:border-t-0 lg:border-l border-[#ddd6ce] bg-white flex flex-col max-h-[40vh] lg:max-h-none">
+          <div className="px-4 py-2.5 border-b border-[#ebe5dd] flex items-center gap-2">
+            <MessageSquare className="w-3.5 h-3.5 text-[#c0392b]" />
+            <span className="text-[12px] font-medium text-[#1a1714]">Transcript</span>
+            <span className="text-[11px] text-[#a8a09a] ml-auto">
               {transcript.length}
             </span>
           </div>
@@ -513,14 +513,14 @@ export default function InterviewPage() {
                 <div
                   className={`rounded p-2.5 ${
                     entry.role === "interviewer"
-                      ? "bg-[#141414] border border-[#1e1e1e]"
-                      : "bg-[#e8a44a]/5 border border-[#e8a44a]/10 ml-3"
+                      ? "bg-[#f0ece6] border border-[#ebe5dd]"
+                      : "bg-[#fdf0ee] border border-[#c0392b]/10 ml-3"
                   }`}
                 >
-                  <p className="text-[10px] text-[#555] uppercase tracking-wider mb-1 font-medium">
+                  <p className="text-[10px] text-[#a8a09a] uppercase tracking-wider mb-1 font-medium">
                     {entry.role === "interviewer" ? "Interviewer" : "You"}
                   </p>
-                  <p className="text-[12px] text-[#8a8a8a] leading-relaxed">
+                  <p className="text-[12px] text-[#6b6560] leading-relaxed">
                     {entry.content}
                   </p>
                 </div>
@@ -528,7 +528,7 @@ export default function InterviewPage() {
             ))}
 
             {isListening && (
-              <div className="flex items-center gap-2 text-[#555] p-2">
+              <div className="flex items-center gap-2 text-[#a8a09a] p-2">
                 <VoiceLoading />
                 <span className="text-[11px]">Listening...</span>
               </div>

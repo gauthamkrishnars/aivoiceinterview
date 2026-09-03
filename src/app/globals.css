@@ -2,20 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=IBM+Plex+Mono:wght@400;500&display=swap");
 
 :root {
-  --bg: #0c0c0c;
-  --bg-elevated: #141414;
-  --bg-surface: #1a1a1a;
-  --border: #262626;
-  --border-subtle: #1e1e1e;
-  --text-primary: #f0f0f0;
-  --text-secondary: #8a8a8a;
-  --text-tertiary: #555;
-  --accent: #e8a44a;
-  --accent-dim: #c4873a;
-  --danger: #d44;
+  --ink: #1a1714;
+  --ink-light: #6b6560;
+  --ink-faint: #a8a09a;
+  --paper: #f7f5f2;
+  --paper-warm: #f0ece6;
+  --paper-deep: #e8e2da;
+  --accent: #c0392b;
+  --accent-hover: #a93226;
+  --accent-light: #fdf0ee;
+  --success: #276749;
+  --success-light: #f0fdf4;
+  --warning: #b45309;
+  --warning-light: #fffbeb;
+  --border: #ddd6ce;
+  --border-light: #ebe5dd;
 }
 
 * {
@@ -30,29 +34,31 @@ html {
 
 body {
   font-family: "DM Sans", system-ui, sans-serif;
-  background-color: var(--bg);
-  color: var(--text-primary);
+  background-color: var(--paper);
+  color: var(--ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.6;
 }
 
-/* Subtle grain texture overlay */
+/* Subtle paper texture */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
-  background-size: 128px;
+  background-size: 200px;
 }
 
-/* Display font */
+/* Serif display */
 .font-display {
-  font-family: "Newsreader", Georgia, serif;
+  font-family: "DM Serif Display", Georgia, serif;
 }
 
 /* Body font */
@@ -60,50 +66,34 @@ body::before {
   font-family: "DM Sans", system-ui, sans-serif;
 }
 
-/* Mono font */
+/* Mono */
 .font-mono {
-  font-family: "JetBrains Mono", monospace;
+  font-family: "IBM Plex Mono", monospace;
 }
 
 @layer utilities {
-  /* No gradient text - use solid colors instead */
+  /* Accent text */
   .text-accent {
     color: var(--accent);
   }
 
   .text-muted {
-    color: var(--text-secondary);
+    color: var(--ink-light);
   }
 
-  .text-dim {
-    color: var(--text-tertiary);
+  .text-faint {
+    color: var(--ink-faint);
   }
 
-  /* Surface colors */
+  /* Surfaces */
   .surface {
-    background-color: var(--bg-surface);
+    background: white;
     border: 1px solid var(--border);
   }
 
-  .surface-elevated {
-    background-color: var(--bg-elevated);
-    border: 1px solid var(--border);
-  }
-
-  /* No glass morphism - solid backgrounds */
-  .card {
-    background: var(--bg-surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-  }
-
-  .card-hover {
-    transition: border-color 0.2s ease, background-color 0.2s ease;
-  }
-
-  .card-hover:hover {
-    border-color: #333;
-    background: #1e1e1e;
+  .surface-warm {
+    background: var(--paper-warm);
+    border: 1px solid var(--border-light);
   }
 
   /* Buttons */
@@ -116,11 +106,12 @@ body::before {
     font-family: "DM Sans", system-ui, sans-serif;
     font-size: 14px;
     font-weight: 500;
-    border-radius: 6px;
+    border-radius: 4px;
     border: 1px solid transparent;
     cursor: pointer;
     transition: all 0.15s ease;
     white-space: nowrap;
+    text-decoration: none;
   }
 
   .btn:disabled {
@@ -130,78 +121,56 @@ body::before {
 
   .btn-primary {
     background: var(--accent);
-    color: #0c0c0c;
+    color: white;
     border-color: var(--accent);
   }
 
   .btn-primary:hover:not(:disabled) {
-    background: var(--accent-dim);
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
   }
 
   .btn-secondary {
-    background: transparent;
-    color: var(--text-primary);
+    background: white;
+    color: var(--ink);
     border-color: var(--border);
   }
 
   .btn-secondary:hover:not(:disabled) {
-    border-color: #444;
-    background: var(--bg-surface);
+    border-color: var(--ink-faint);
+    background: var(--paper-warm);
   }
 
   .btn-ghost {
     background: transparent;
-    color: var(--text-secondary);
+    color: var(--ink-light);
     border-color: transparent;
     padding: 8px 12px;
   }
 
   .btn-ghost:hover:not(:disabled) {
-    color: var(--text-primary);
-    background: var(--bg-surface);
+    color: var(--ink);
+    background: var(--paper-warm);
   }
 
   .btn-danger {
-    background: var(--danger);
+    background: var(--accent);
     color: white;
-    border-color: var(--danger);
+    border-color: var(--accent);
   }
 
   .btn-danger:hover:not(:disabled) {
-    background: #b33;
+    background: var(--accent-hover);
   }
 
-  /* Scrollbar */
-  .scrollbar-thin::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  .scrollbar-thin::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .scrollbar-thin::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 2px;
-  }
-
-  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-    background: #333;
-  }
-
-  /* Subtle transitions */
-  .transition-fast {
-    transition: all 0.15s ease;
-  }
-
-  /* Input styles */
+  /* Inputs */
   .input {
     width: 100%;
     padding: 10px 14px;
-    background: var(--bg);
+    background: white;
     border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text-primary);
+    border-radius: 4px;
+    color: var(--ink);
     font-family: "DM Sans", system-ui, sans-serif;
     font-size: 14px;
     outline: none;
@@ -210,21 +179,21 @@ body::before {
 
   .input:focus {
     border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-light);
   }
 
   .input::placeholder {
-    color: var(--text-tertiary);
+    color: var(--ink-faint);
   }
 
-  /* Select styles */
   .select {
     width: 100%;
     padding: 10px 14px;
     padding-right: 36px;
-    background: var(--bg);
+    background: white;
     border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text-primary);
+    border-radius: 4px;
+    color: var(--ink);
     font-family: "DM Sans", system-ui, sans-serif;
     font-size: 14px;
     outline: none;
@@ -235,15 +204,32 @@ body::before {
 
   .select:focus {
     border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-light);
   }
 
   .select option {
-    background: var(--bg);
-    color: var(--text-primary);
+    background: white;
+    color: var(--ink);
+  }
+
+  /* Scrollbar */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: var(--ink-faint);
   }
 }
-
-/* No waveform animation bars - use a simpler indicator */
 
 /* Focus visible */
 :focus-visible {
@@ -254,5 +240,5 @@ body::before {
 /* Selection */
 ::selection {
   background: var(--accent);
-  color: var(--bg);
+  color: white;
 }

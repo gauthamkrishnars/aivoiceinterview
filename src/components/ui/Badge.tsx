@@ -12,11 +12,11 @@ export default function Badge({
   size = "sm",
 }: BadgeProps) {
   const variants: Record<string, string> = {
-    default: "bg-[#1a1a1a] text-[#8a8a8a] border-[#262626]",
-    accent: "bg-[#e8a44a]/10 text-[#e8a44a] border-[#e8a44a]/20",
-    success: "bg-[#2d8a4e]/10 text-[#4ade80] border-[#2d8a4e]/20",
-    warning: "bg-[#e8a44a]/10 text-[#e8a44a] border-[#e8a44a]/20",
-    danger: "bg-[#d44]/10 text-[#f87171] border-[#d44]/20",
+    default: "bg-[#f0ece6] text-[#6b6560] border-[#ebe5dd]",
+    accent: "bg-[#fdf0ee] text-[#c0392b] border-[#c0392b]/20",
+    success: "bg-[#f0fdf4] text-[#276749] border-[#276749]/20",
+    warning: "bg-[#fffbeb] text-[#b45309] border-[#b45309]/20",
+    danger: "bg-[#fdf0ee] text-[#c0392b] border-[#c0392b]/20",
   };
 
   const sizes: Record<string, string> = {
@@ -26,7 +26,7 @@ export default function Badge({
 
   return (
     <span
-      className={`inline-flex items-center font-medium rounded border ${variants[variant]} ${sizes[size]}`}
+      className={`inline-flex items-center font-medium rounded-sm border ${variants[variant]} ${sizes[size]}`}
     >
       {children}
     </span>

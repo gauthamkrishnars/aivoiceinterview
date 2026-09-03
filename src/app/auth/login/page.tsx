@@ -45,16 +45,16 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-start justify-center px-5 pt-32">
       <div className="w-full max-w-sm">
-        <h1 className="font-display text-[24px] font-medium text-[#f0f0f0] mb-1">
+        <h1 className="font-display text-[24px] text-[#1a1714] mb-1">
           Welcome back
         </h1>
-        <p className="text-[14px] text-[#555] mb-8">
+        <p className="text-[14px] text-[#6b6560] mb-8">
           Pick up where you left off.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
-            <div className="p-3 rounded bg-[#d44]/10 border border-[#d44]/20 text-[13px] text-[#f87171]">
+            <div className="p-3 rounded bg-[#fdf0ee] border border-[#c0392b]/20 text-[13px] text-[#c0392b]">
               {error}
             </div>
           )}
@@ -89,14 +89,14 @@ export default function LoginPage() {
           </Button>
         </form>
 
-        <p className="mt-6 text-[13px] text-[#555]">
+        <p className="mt-6 text-[13px] text-[#6b6560]">
           No account?{" "}
-          <Link href="/auth/signup" className="text-[#e8a44a] hover:text-[#c4873a] transition-colors">
+          <Link href="/auth/signup" className="text-[#c0392b] hover:text-[#a93226] font-medium transition-colors">
             Sign up
           </Link>
         </p>
-        <p className="mt-2 text-[13px] text-[#333]">
-          <Link href="/auth/guest" className="hover:text-[#555] transition-colors">
+        <p className="mt-2 text-[13px] text-[#a8a09a]">
+          <Link href="/auth/guest" className="hover:text-[#6b6560] transition-colors">
             Or try without an account
           </Link>
         </p>

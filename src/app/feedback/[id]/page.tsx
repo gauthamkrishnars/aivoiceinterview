@@ -114,10 +114,10 @@ export default function FeedbackPage() {
   }, [sessionId]);
 
   const getScoreColor = (score: number) => {
-    if (score >= 80) return "#4ade80";
-    if (score >= 60) return "#e8a44a";
-    if (score >= 40) return "#fbbf24";
-    return "#f87171";
+    if (score >= 80) return "#276749";
+    if (score >= 60) return "#b45309";
+    if (score >= 40) return "#b45309";
+    return "#c0392b";
   };
 
   const getScoreLabel = (score: number) => {
@@ -140,7 +140,7 @@ export default function FeedbackPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
           <SpinnerLoading size="lg" />
-          <p className="text-[13px] text-[#555]">Analyzing your performance...</p>
+          <p className="text-[13px] text-[#6b6560]">Analyzing your performance...</p>
         </div>
       </div>
     );
@@ -150,7 +150,7 @@ export default function FeedbackPage() {
     return (
       <div className="min-h-screen flex items-center justify-center px-5">
         <div className="text-center">
-          <p className="text-[14px] text-[#8a8a8a] mb-4">Session not found</p>
+          <p className="text-[14px] text-[#6b6560] mb-4">Session not found</p>
           <Link href="/dashboard">
             <Button>Back to dashboard</Button>
           </Link>
@@ -167,30 +167,23 @@ export default function FeedbackPage() {
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="mb-10">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded border border-[#e8a44a]/20 bg-[#e8a44a]/5 text-[#e8a44a] text-[11px] font-medium mb-4">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded border border-[#c0392b]/20 bg-[#fdf0ee] text-[#c0392b] text-[11px] font-medium mb-4">
             <Trophy className="w-3 h-3" />
             Interview complete
           </div>
-          <h1 className="font-display text-[24px] font-medium text-[#f0f0f0] mb-1">
+          <h1 className="font-display text-[24px] text-[#1a1714] mb-1">
             Your results
           </h1>
-          <p className="text-[14px] text-[#555]">
+          <p className="text-[14px] text-[#a8a09a]">
             Here is the breakdown of your performance.
           </p>
         </div>
 
         {/* Score */}
-        <div className="mb-8 bg-[#141414] border border-[#262626] rounded-lg p-8 text-center">
+        <div className="mb-8 bg-white border border-[#ddd6ce] rounded p-8 text-center">
           <div className="relative w-28 h-28 mx-auto mb-5">
             <svg className="w-full h-full" viewBox="0 0 100 100">
-              <circle
-                cx="50"
-                cy="50"
-                r="45"
-                fill="none"
-                stroke="#262626"
-                strokeWidth="6"
-              />
+              <circle cx="50" cy="50" r="45" fill="none" stroke="#ebe5dd" strokeWidth="6" />
               <circle
                 cx="50"
                 cy="50"
@@ -205,21 +198,21 @@ export default function FeedbackPage() {
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
               <div>
-                <p className="font-display text-[32px] font-medium" style={{ color: scoreColor }}>
+                <p className="font-display text-[32px]" style={{ color: scoreColor }}>
                   {feedback.overallScore}
                 </p>
-                <p className="text-[10px] text-[#555]">/100</p>
+                <p className="text-[10px] text-[#a8a09a]">/100</p>
               </div>
             </div>
           </div>
-          <p className="font-display text-[16px] font-medium text-[#f0f0f0] mb-0.5">
+          <p className="font-display text-[16px] text-[#1a1714] mb-0.5">
             {getScoreLabel(feedback.overallScore)}
           </p>
-          <p className="text-[12px] text-[#555]">Overall performance</p>
+          <p className="text-[12px] text-[#a8a09a]">Overall performance</p>
         </div>
 
         {/* Breakdown */}
-        <div className="grid grid-cols-3 gap-px bg-[#1e1e1e] rounded overflow-hidden mb-8">
+        <div className="grid grid-cols-3 bg-white border border-[#ddd6ce] rounded overflow-hidden mb-8">
           {[
             { label: "Technical", score: feedback.technicalScore, icon: Brain },
             { label: "Communication", score: feedback.communicationScore, icon: MessageSquare },
@@ -228,15 +221,15 @@ export default function FeedbackPage() {
             const Icon = item.icon;
             const color = getScoreColor(item.score);
             return (
-              <div key={item.label} className="bg-[#0c0c0c] p-5 text-center">
+              <div key={item.label} className={`p-5 text-center ${item.label !== "Technical" ? "border-l border-[#ebe5dd]" : ""}`}>
                 <Icon className="w-4 h-4 mx-auto mb-2" style={{ color }} />
-                <p className="text-[10px] text-[#555] uppercase tracking-wider font-medium mb-1">
+                <p className="text-[10px] text-[#a8a09a] uppercase tracking-wider font-medium mb-1">
                   {item.label}
                 </p>
-                <p className="font-display text-[20px] font-medium text-[#f0f0f0]">
+                <p className="font-display text-[20px] text-[#1a1714]">
                   {item.score}
                 </p>
-                <div className="mt-3 h-1 rounded-full bg-[#1a1a1a] overflow-hidden">
+                <div className="mt-3 h-1 rounded-full bg-[#f0ece6] overflow-hidden">
                   <div
                     className="h-full rounded-full transition-all duration-700"
                     style={{ width: `${item.score}%`, backgroundColor: color }}
@@ -248,45 +241,45 @@ export default function FeedbackPage() {
         </div>
 
         {/* Analysis */}
-        <div className="bg-[#141414] border border-[#262626] rounded-lg p-5 mb-4">
+        <div className="bg-white border border-[#ddd6ce] rounded p-5 mb-4">
           <div className="flex items-center gap-2 mb-3">
-            <BarChart3 className="w-4 h-4 text-[#e8a44a]" />
-            <h2 className="font-display text-[14px] font-medium text-[#f0f0f0]">
+            <BarChart3 className="w-4 h-4 text-[#b45309]" />
+            <h2 className="font-display text-[14px] text-[#1a1714]">
               Analysis
             </h2>
           </div>
-          <p className="text-[13px] text-[#8a8a8a] leading-relaxed">
+          <p className="text-[13px] text-[#6b6560] leading-relaxed">
             {feedback.detailedAnalysis}
           </p>
         </div>
 
         {/* Strengths + Weaknesses */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-          <div className="bg-[#141414] border border-[#262626] rounded-lg p-5">
+          <div className="bg-white border border-[#ddd6ce] rounded p-5">
             <div className="flex items-center gap-2 mb-3">
-              <TrendingUp className="w-4 h-4 text-[#4ade80]" />
-              <h3 className="text-[13px] font-medium text-[#f0f0f0]">Strengths</h3>
+              <TrendingUp className="w-4 h-4 text-[#276749]" />
+              <h3 className="text-[13px] font-medium text-[#1a1714]">Strengths</h3>
             </div>
             <ul className="space-y-2">
               {feedback.strengths.map((s, i) => (
                 <li key={i} className="flex items-start gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#4ade80] mt-1.5 flex-shrink-0" />
-                  <span className="text-[12px] text-[#8a8a8a] leading-relaxed">{s}</span>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#276749] mt-1.5 flex-shrink-0" />
+                  <span className="text-[12px] text-[#6b6560] leading-relaxed">{s}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="bg-[#141414] border border-[#262626] rounded-lg p-5">
+          <div className="bg-white border border-[#ddd6ce] rounded p-5">
             <div className="flex items-center gap-2 mb-3">
-              <Target className="w-4 h-4 text-[#e8a44a]" />
-              <h3 className="text-[13px] font-medium text-[#f0f0f0]">Improve</h3>
+              <Target className="w-4 h-4 text-[#b45309]" />
+              <h3 className="text-[13px] font-medium text-[#1a1714]">Improve</h3>
             </div>
             <ul className="space-y-2">
               {feedback.weaknesses.map((w, i) => (
                 <li key={i} className="flex items-start gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#e8a44a] mt-1.5 flex-shrink-0" />
-                  <span className="text-[12px] text-[#8a8a8a] leading-relaxed">{w}</span>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#b45309] mt-1.5 flex-shrink-0" />
+                  <span className="text-[12px] text-[#6b6560] leading-relaxed">{w}</span>
                 </li>
               ))}
             </ul>
@@ -294,56 +287,56 @@ export default function FeedbackPage() {
         </div>
 
         {/* Practice exercises */}
-        <div className="bg-[#141414] border border-[#262626] rounded-lg p-5 mb-4">
+        <div className="bg-white border border-[#ddd6ce] rounded p-5 mb-4">
           <div className="flex items-center gap-2 mb-3">
-            <Lightbulb className="w-4 h-4 text-[#e8a44a]" />
-            <h3 className="text-[13px] font-medium text-[#f0f0f0]">Practice exercises</h3>
+            <Lightbulb className="w-4 h-4 text-[#b45309]" />
+            <h3 className="text-[13px] font-medium text-[#1a1714]">Practice exercises</h3>
           </div>
           <ul className="space-y-2">
             {feedback.suggestions.map((s, i) => (
-              <li key={i} className="flex items-start gap-2.5 p-2.5 rounded bg-[#0c0c0c] border border-[#1e1e1e]">
-                <span className="flex-shrink-0 w-5 h-5 rounded bg-[#e8a44a]/10 text-[#e8a44a] text-[10px] font-medium flex items-center justify-center">
+              <li key={i} className="flex items-start gap-2.5 p-2.5 rounded bg-[#f7f5f2] border border-[#ebe5dd]">
+                <span className="flex-shrink-0 w-5 h-5 rounded bg-[#fdf0ee] text-[#c0392b] text-[10px] font-medium flex items-center justify-center">
                   {i + 1}
                 </span>
-                <span className="text-[12px] text-[#8a8a8a] leading-relaxed">{s}</span>
+                <span className="text-[12px] text-[#6b6560] leading-relaxed">{s}</span>
               </li>
             ))}
           </ul>
         </div>
 
         {/* Transcript */}
-        <div className="bg-[#141414] border border-[#262626] rounded-lg mb-4">
+        <div className="bg-white border border-[#ddd6ce] rounded mb-4">
           <button
             onClick={() => setShowTranscript(!showTranscript)}
             className="flex items-center justify-between w-full p-4"
           >
             <div className="flex items-center gap-2">
-              <MessageSquare className="w-4 h-4 text-[#e8a44a]" />
-              <span className="text-[13px] font-medium text-[#f0f0f0]">Transcript</span>
+              <MessageSquare className="w-4 h-4 text-[#c0392b]" />
+              <span className="text-[13px] font-medium text-[#1a1714]">Transcript</span>
               <Badge variant="default">{sessionInfo.transcript.length}</Badge>
             </div>
             {showTranscript ? (
-              <ChevronUp className="w-4 h-4 text-[#555]" />
+              <ChevronUp className="w-4 h-4 text-[#a8a09a]" />
             ) : (
-              <ChevronDown className="w-4 h-4 text-[#555]" />
+              <ChevronDown className="w-4 h-4 text-[#a8a09a]" />
             )}
           </button>
 
           {showTranscript && (
-            <div className="border-t border-[#262626] p-4 space-y-2">
+            <div className="border-t border-[#ebe5dd] p-4 space-y-2">
               {sessionInfo.transcript.map((entry, idx) => (
                 <div
                   key={idx}
                   className={`rounded p-2.5 ${
                     entry.role === "interviewer"
-                      ? "bg-[#0c0c0c] border border-[#1e1e1e]"
-                      : "bg-[#e8a44a]/5 border border-[#e8a44a]/10 ml-3"
+                      ? "bg-[#f7f5f2] border border-[#ebe5dd]"
+                      : "bg-[#fdf0ee] border border-[#c0392b]/10 ml-3"
                   }`}
                 >
-                  <p className="text-[10px] text-[#555] uppercase tracking-wider mb-1 font-medium">
+                  <p className="text-[10px] text-[#a8a09a] uppercase tracking-wider mb-1 font-medium">
                     {entry.role === "interviewer" ? "Interviewer" : "You"}
                   </p>
-                  <p className="text-[12px] text-[#8a8a8a] leading-relaxed">
+                  <p className="text-[12px] text-[#6b6560] leading-relaxed">
                     {entry.content}
                   </p>
                 </div>
@@ -353,7 +346,7 @@ export default function FeedbackPage() {
         </div>
 
         {/* Session info */}
-        <div className="flex flex-wrap gap-4 text-[12px] text-[#555] mb-8">
+        <div className="flex flex-wrap gap-4 text-[12px] text-[#a8a09a] mb-8">
           <div className="flex items-center gap-1.5">
             <Clock className="w-3 h-3" />
             {formatDuration(sessionInfo.duration)}

@@ -108,58 +108,52 @@ export default function DashboardPage() {
   };
 
   const getScoreColor = (score: number) => {
-    if (score >= 80) return "text-[#4ade80]";
-    if (score >= 60) return "text-[#e8a44a]";
-    if (score >= 40) return "text-[#fbbf24]";
-    return "text-[#f87171]";
+    if (score >= 80) return "text-[#276749]";
+    if (score >= 60) return "text-[#b45309]";
+    if (score >= 40) return "text-[#b45309]";
+    return "text-[#c0392b]";
   };
 
   return (
     <div className="min-h-screen py-12 px-5">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
-          <h1 className="font-display text-[24px] font-medium text-[#f0f0f0] mb-1">
+          <h1 className="font-display text-[24px] text-[#1a1714] mb-1">
             Session History
           </h1>
-          <p className="text-[14px] text-[#555]">
+          <p className="text-[14px] text-[#a8a09a]">
             Your interview practice, tracked.
           </p>
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-[#1e1e1e] mb-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-[#ebe5dd] bg-white border border-[#ddd6ce] rounded mb-8">
           {[
-            { label: "Total", value: stats.total, icon: History, color: "#8a8a8a" },
-            { label: "Avg Score", value: stats.avgScore || "—", icon: BarChart3, color: "#e8a44a" },
-            { label: "Practice", value: `${stats.totalMinutes}m`, icon: Clock, color: "#8a8a8a" },
-            { label: "Done", value: stats.completed, icon: BarChart3, color: "#4ade80" },
-          ].map((stat) => {
-            const Icon = stat.icon;
-            return (
-              <div key={stat.label} className="bg-[#0c0c0c] p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Icon className="w-3.5 h-3.5" style={{ color: stat.color }} />
-                  <span className="text-[11px] text-[#555] uppercase tracking-wider font-medium">
-                    {stat.label}
-                  </span>
-                </div>
-                <p className="font-display text-[22px] font-medium text-[#f0f0f0]">
-                  {stat.value}
-                </p>
-              </div>
-            );
-          })}
+            { label: "Total", value: stats.total, color: "#6b6560" },
+            { label: "Avg Score", value: stats.avgScore || "—", color: "#b45309" },
+            { label: "Practice", value: `${stats.totalMinutes}m`, color: "#6b6560" },
+            { label: "Done", value: stats.completed, color: "#276749" },
+          ].map((stat) => (
+            <div key={stat.label} className="p-4 text-center first:text-left">
+              <p className="text-[11px] text-[#a8a09a] uppercase tracking-wider font-medium mb-1">
+                {stat.label}
+              </p>
+              <p className="font-display text-[22px] text-[#1a1714]">
+                {stat.value}
+              </p>
+            </div>
+          ))}
         </div>
 
         {/* Search */}
         <div className="relative mb-6">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#555]" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#a8a09a]" />
           <input
             type="text"
             placeholder="Search sessions..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 bg-[#0c0c0c] border border-[#262626] rounded-md text-[#f0f0f0] text-[13px] placeholder-[#555] outline-none focus:border-[#e8a44a] transition-colors"
+            className="w-full pl-9 pr-4 py-2 bg-white border border-[#ddd6ce] rounded text-[#1a1714] text-[13px] placeholder-[#a8a09a] outline-none focus:border-[#c0392b] focus:ring-2 focus:ring-[#c0392b]/10 transition-all"
           />
         </div>
 
@@ -171,14 +165,14 @@ export default function DashboardPage() {
             ))}
           </div>
         ) : filteredSessions.length === 0 ? (
-          <div className="text-center py-16">
-            <div className="w-10 h-10 rounded bg-[#141414] border border-[#262626] flex items-center justify-center mx-auto mb-4">
-              <History className="w-5 h-5 text-[#555]" />
+          <div className="text-center py-16 bg-white border border-[#ddd6ce] rounded">
+            <div className="w-10 h-10 rounded bg-[#f0ece6] flex items-center justify-center mx-auto mb-4">
+              <History className="w-5 h-5 text-[#a8a09a]" />
             </div>
-            <h3 className="font-display text-[16px] font-medium text-[#f0f0f0] mb-1">
+            <h3 className="font-display text-[16px] text-[#1a1714] mb-1">
               No sessions yet
             </h3>
-            <p className="text-[13px] text-[#555] mb-5">
+            <p className="text-[13px] text-[#a8a09a] mb-5">
               Start your first interview to see it here.
             </p>
             <Link href="/create">
@@ -188,17 +182,17 @@ export default function DashboardPage() {
             </Link>
           </div>
         ) : (
-          <div className="space-y-px bg-[#1e1e1e] rounded overflow-hidden">
+          <div className="space-y-px bg-[#ddd6ce] rounded overflow-hidden border border-[#ddd6ce]">
             {filteredSessions.map((session) => (
               <Link
                 key={session.id}
                 href={`/feedback/${session.id}`}
-                className="block bg-[#0c0c0c] hover:bg-[#141414] transition-colors"
+                className="block bg-white hover:bg-[#f7f5f2] transition-colors"
               >
                 <div className="p-4 flex flex-col sm:flex-row sm:items-center gap-3">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <h3 className="font-display text-[14px] font-medium text-[#f0f0f0] truncate">
+                      <h3 className="font-display text-[14px] text-[#1a1714] truncate">
                         {session.interview.title}
                       </h3>
                       <Badge
@@ -211,7 +205,7 @@ export default function DashboardPage() {
                         {session.status === "completed" ? "Done" : "Active"}
                       </Badge>
                     </div>
-                    <div className="flex flex-wrap items-center gap-3 text-[11px] text-[#555]">
+                    <div className="flex flex-wrap items-center gap-3 text-[11px] text-[#a8a09a]">
                       <span className="flex items-center gap-1">
                         <Briefcase className="w-3 h-3" />
                         {session.interview.role.replace(/-/g, " ")}
@@ -233,14 +227,14 @@ export default function DashboardPage() {
 
                   {session.overallScore !== null && (
                     <div className="text-right">
-                      <p className={`font-display text-[20px] font-medium ${getScoreColor(session.overallScore)}`}>
+                      <p className={`font-display text-[20px] ${getScoreColor(session.overallScore)}`}>
                         {session.overallScore}
                       </p>
-                      <p className="text-[10px] text-[#555] uppercase tracking-wider">Score</p>
+                      <p className="text-[10px] text-[#a8a09a] uppercase tracking-wider">Score</p>
                     </div>
                   )}
 
-                  <ArrowRight className="w-4 h-4 text-[#333] hidden sm:block" />
+                  <ArrowRight className="w-4 h-4 text-[#ddd6ce] hidden sm:block" />
                 </div>
               </Link>
             ))}

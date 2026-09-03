@@ -128,12 +128,11 @@ export default function CreateInterviewPage() {
   return (
     <div className="min-h-screen py-16 px-5">
       <div className="max-w-lg mx-auto">
-        {/* Header */}
         <div className="mb-10">
-          <h1 className="font-display text-[24px] font-medium text-[#f0f0f0] mb-1">
+          <h1 className="font-display text-[24px] text-[#1a1714] mb-1">
             Build your interview
           </h1>
-          <p className="text-[14px] text-[#555]">
+          <p className="text-[14px] text-[#6b6560]">
             Answer a few quick questions about the role you are preparing for.
           </p>
         </div>
@@ -148,17 +147,17 @@ export default function CreateInterviewPage() {
                   onClick={() => s.num <= step && setStep(s.num)}
                   className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded text-[12px] font-medium transition-colors ${
                     s.num === step
-                      ? "bg-[#e8a44a]/10 text-[#e8a44a] border border-[#e8a44a]/20"
+                      ? "bg-[#c0392b] text-white border border-[#c0392b]"
                       : s.num < step
-                      ? "bg-[#2d8a4e]/10 text-[#4ade80] border border-[#2d8a4e]/20 cursor-pointer hover:bg-[#2d8a4e]/15"
-                      : "bg-[#141414] text-[#555] border border-[#262626]"
+                      ? "bg-[#f0fdf4] text-[#276749] border border-[#276749]/20 cursor-pointer hover:bg-[#dcfce7]"
+                      : "bg-white text-[#a8a09a] border border-[#ddd6ce]"
                   }`}
                 >
                   <Icon className="w-3.5 h-3.5" />
                   <span className="hidden sm:inline">{s.label}</span>
                 </button>
                 {i < steps.length - 1 && (
-                  <ChevronRight className="w-3 h-3 text-[#333] mx-1 flex-shrink-0" />
+                  <ChevronRight className="w-3 h-3 text-[#ddd6ce] mx-1 flex-shrink-0" />
                 )}
               </div>
             );
@@ -166,14 +165,14 @@ export default function CreateInterviewPage() {
         </div>
 
         {/* Step content */}
-        <div className="bg-[#141414] border border-[#262626] rounded-lg p-6">
+        <div className="bg-white border border-[#ddd6ce] rounded-md p-6">
           {step === 1 && (
             <div className="space-y-4">
               <div>
-                <h2 className="font-display text-[16px] font-medium text-[#f0f0f0] mb-1">
+                <h2 className="font-display text-[16px] text-[#1a1714] mb-1">
                   What role are you targeting?
                 </h2>
-                <p className="text-[13px] text-[#555]">
+                <p className="text-[13px] text-[#a8a09a]">
                   This shapes the type and depth of questions you will get.
                 </p>
               </div>
@@ -188,10 +187,10 @@ export default function CreateInterviewPage() {
           {step === 2 && (
             <div className="space-y-4">
               <div>
-                <h2 className="font-display text-[16px] font-medium text-[#f0f0f0] mb-1">
+                <h2 className="font-display text-[16px] text-[#1a1714] mb-1">
                   Your experience level?
                 </h2>
-                <p className="text-[13px] text-[#555]">
+                <p className="text-[13px] text-[#a8a09a]">
                   We adjust difficulty and follow-ups based on this.
                 </p>
               </div>
@@ -206,10 +205,10 @@ export default function CreateInterviewPage() {
           {step === 3 && (
             <div className="space-y-4">
               <div>
-                <h2 className="font-display text-[16px] font-medium text-[#f0f0f0] mb-1">
+                <h2 className="font-display text-[16px] text-[#1a1714] mb-1">
                   Your primary tech stack?
                 </h2>
-                <p className="text-[13px] text-[#555]">
+                <p className="text-[13px] text-[#a8a09a]">
                   Questions will include topics specific to your tools.
                 </p>
               </div>
@@ -224,10 +223,10 @@ export default function CreateInterviewPage() {
           {step === 4 && (
             <div className="space-y-4">
               <div>
-                <h2 className="font-display text-[16px] font-medium text-[#f0f0f0] mb-1">
+                <h2 className="font-display text-[16px] text-[#1a1714] mb-1">
                   How many questions?
                 </h2>
-                <p className="text-[13px] text-[#555]">
+                <p className="text-[13px] text-[#a8a09a]">
                   Longer sessions give more detailed feedback.
                 </p>
               </div>
@@ -238,14 +237,14 @@ export default function CreateInterviewPage() {
                     onClick={() => setQuestionCount(qc.value)}
                     className={`p-3 rounded border text-center transition-colors ${
                       questionCount === qc.value
-                        ? "bg-[#e8a44a]/10 border-[#e8a44a]/30 text-[#e8a44a]"
-                        : "bg-[#0c0c0c] border-[#262626] text-[#8a8a8a] hover:border-[#444]"
+                        ? "bg-[#fdf0ee] border-[#c0392b] text-[#c0392b]"
+                        : "bg-white border-[#ddd6ce] text-[#6b6560] hover:border-[#a8a09a]"
                     }`}
                   >
-                    <span className="block text-[20px] font-display font-medium mb-0.5">
+                    <span className="block text-[20px] font-display mb-0.5">
                       {qc.label}
                     </span>
-                    <span className="text-[11px] text-[#555]">
+                    <span className="text-[11px] text-[#a8a09a]">
                       {qc.desc}
                     </span>
                   </button>
@@ -288,24 +287,24 @@ export default function CreateInterviewPage() {
 
         {/* Config summary */}
         {step >= 2 && (
-          <div className="mt-6 p-3 bg-[#141414] border border-[#1e1e1e] rounded">
+          <div className="mt-6 p-3 bg-[#f0ece6] border border-[#ebe5dd] rounded">
             <div className="flex flex-wrap gap-1.5">
               {role && (
-                <span className="px-2 py-0.5 rounded bg-[#e8a44a]/10 text-[#e8a44a] text-[11px] font-medium border border-[#e8a44a]/20">
+                <span className="px-2 py-0.5 rounded-sm bg-[#fdf0ee] text-[#c0392b] text-[11px] font-medium border border-[#c0392b]/20">
                   {roles.find((r) => r.value === role)?.label}
                 </span>
               )}
               {experience && (
-                <span className="px-2 py-0.5 rounded bg-[#1a1a1a] text-[#8a8a8a] text-[11px] border border-[#262626]">
+                <span className="px-2 py-0.5 rounded-sm bg-white text-[#6b6560] text-[11px] border border-[#ddd6ce]">
                   {experiences.find((e) => e.value === experience)?.label}
                 </span>
               )}
               {techStack && (
-                <span className="px-2 py-0.5 rounded bg-[#1a1a1a] text-[#8a8a8a] text-[11px] border border-[#262626]">
+                <span className="px-2 py-0.5 rounded-sm bg-white text-[#6b6560] text-[11px] border border-[#ddd6ce]">
                   {techStacks.find((t) => t.value === techStack)?.label}
                 </span>
               )}
-              <span className="px-2 py-0.5 rounded bg-[#1a1a1a] text-[#8a8a8a] text-[11px] border border-[#262626]">
+              <span className="px-2 py-0.5 rounded-sm bg-white text-[#6b6560] text-[11px] border border-[#ddd6ce]">
                 {questionCount} Qs
               </span>
             </div>

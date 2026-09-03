@@ -13,28 +13,30 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="space-y-1.5">
         {label && (
-          <label className="block text-[13px] font-medium text-[#8a8a8a]">
+          <label className="block text-[13px] font-medium text-[#1a1714]">
             {label}
           </label>
         )}
         <div className="relative">
           {icon && (
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-[#555]">
+            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-[#a8a09a]">
               {icon}
             </div>
           )}
           <input
             ref={ref}
-            className={`w-full px-3 py-2 bg-[#0c0c0c] border border-[#262626] rounded-md text-[#f0f0f0] text-[14px] placeholder-[#555] outline-none transition-colors focus:border-[#e8a44a] ${
+            className={`w-full px-3 py-2 bg-white border rounded text-[#1a1714] text-[14px] placeholder-[#a8a09a] outline-none transition-all ${
               icon ? "pl-9" : ""
             } ${
-              error ? "border-[#d44] focus:border-[#d44]" : ""
+              error
+                ? "border-[#c0392b] focus:ring-2 focus:ring-[#c0392b]/20"
+                : "border-[#ddd6ce] focus:border-[#c0392b] focus:ring-2 focus:ring-[#c0392b]/10"
             } ${className}`}
             {...props}
           />
         </div>
         {error && (
-          <p className="text-[12px] text-[#d44]">{error}</p>
+          <p className="text-[12px] text-[#c0392b]">{error}</p>
         )}
       </div>
     );

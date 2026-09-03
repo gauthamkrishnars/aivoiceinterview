@@ -9,30 +9,38 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: {
-          DEFAULT: "#0c0c0c",
-          elevated: "#141414",
-          surface: "#1a1a1a",
+        ink: {
+          DEFAULT: "#1a1714",
+          light: "#6b6560",
+          faint: "#a8a09a",
         },
-        border: {
-          DEFAULT: "#262626",
-          subtle: "#1e1e1e",
-        },
-        text: {
-          primary: "#f0f0f0",
-          secondary: "#8a8a8a",
-          tertiary: "#555",
+        paper: {
+          DEFAULT: "#f7f5f2",
+          warm: "#f0ece6",
+          deep: "#e8e2da",
         },
         accent: {
-          DEFAULT: "#e8a44a",
-          dim: "#c4873a",
+          DEFAULT: "#c0392b",
+          hover: "#a93226",
+          light: "#fdf0ee",
         },
-        danger: "#d44",
+        success: {
+          DEFAULT: "#276749",
+          light: "#f0fdf4",
+        },
+        warning: {
+          DEFAULT: "#b45309",
+          light: "#fffbeb",
+        },
+        border: {
+          DEFAULT: "#ddd6ce",
+          light: "#ebe5dd",
+        },
       },
       fontFamily: {
-        display: ['"Newsreader"', "Georgia", "serif"],
+        display: ['"DM Serif Display"', "Georgia", "serif"],
         body: ['"DM Sans"', "system-ui", "sans-serif"],
-        mono: ['"JetBrains Mono"', "monospace"],
+        mono: ['"IBM Plex Mono"', "monospace"],
       },
     },
   },

@@ -48,19 +48,19 @@ export default function Modal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div
-        className="absolute inset-0 bg-black/60"
+        className="absolute inset-0 bg-black/30"
         onClick={onClose}
       />
       <div
-        className={`relative ${sizes[size]} w-full max-h-[85vh] bg-[#141414] border border-[#262626] rounded-lg overflow-hidden`}
+        className={`relative ${sizes[size]} w-full max-h-[85vh] bg-white border border-[#ddd6ce] rounded-md overflow-hidden shadow-lg`}
       >
-        <div className="flex items-center justify-between px-5 py-4 border-b border-[#262626]">
-          <h2 className="font-display text-[16px] font-medium text-[#f0f0f0]">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[#ebe5dd]">
+          <h2 className="font-display text-[18px] text-[#1a1714]">
             {title}
           </h2>
           <button
             onClick={onClose}
-            className="p-1 rounded text-[#555] hover:text-[#f0f0f0] hover:bg-[#1a1a1a] transition-colors"
+            className="p-1.5 rounded text-[#a8a09a] hover:text-[#1a1714] hover:bg-[#f0ece6] transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
